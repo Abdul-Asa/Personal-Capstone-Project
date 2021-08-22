@@ -7,6 +7,7 @@ function authentication(req, res, next) {
   try {
     const verified = jwt.verify(token, process.env.TOKEN_KEY);
     req.user = verified;
+    res.send(req.user);
   } catch (err) {
     res.status(400).send({ err, message: err.message });
   }

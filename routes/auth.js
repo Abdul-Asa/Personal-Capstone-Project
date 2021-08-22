@@ -3,7 +3,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { signUpValidation, loginValidation } = require('../validation');
+const {
+  signUpValidation,
+  loginValidation,
+} = require('../authentication/validation');
 
 router.post('/signup', async (req, res) => {
   try {
@@ -45,7 +48,6 @@ router.post('/login', async (req, res) => {
       { _id: existUser._id, name: existUser.fullName },
       process.env.TOKEN_KEY
     );
-    // res.send(`${existUser.fullName} is logged in`);
     res.header('auth-token', token).send(token);
   } catch (err) {
     res.status(400).send({ err, message: err.message });

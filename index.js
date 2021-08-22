@@ -3,7 +3,7 @@ const app = express();
 const moongose = require('mongoose');
 const dotenv = require('dotenv');
 const authRoute = require('./routes/auth');
-const privateRoute = require('./routes/home');
+const privateRoute = require('./routes/app');
 const port = process.env.PORT || 3000;
 dotenv.config();
 
@@ -25,8 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //ROUTES
-app.get('/', (req, res) => {
-  res.send('don"t waste  my time');
+app.use(express.static('front end'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('front end', 'index.html'));
 });
 app.use('/users', authRoute);
 app.use('/private', privateRoute);
