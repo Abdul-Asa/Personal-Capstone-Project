@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const moongose = require('mongoose');
 const dotenv = require('dotenv');
 const authRoute = require('./routes/auth');
@@ -26,7 +27,7 @@ app.use(express.json());
 
 //ROUTES
 app.use(express.static('front end'));
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve('front end', 'index.html'));
 });
 app.use('/users', authRoute);

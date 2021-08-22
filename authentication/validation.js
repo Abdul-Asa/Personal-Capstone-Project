@@ -9,7 +9,7 @@ const signUpValidation = (data) => {
       .required()
       .min(8)
       .max(1024)
-      .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+      .pattern(new RegExp('^[a-zA-Z0-9]{3,1024}$')),
     phoneNumber: Joi.string().pattern(new RegExp('^[0-9]{3,30}$')),
   });
 
