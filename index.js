@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const moongose = require('mongoose');
 const dotenv = require('dotenv');
-const authRouter = require('./routes/auth');
+const authRoute = require('./routes/auth');
+const privateRoute = require('./routes/home');
 const port = process.env.PORT || 3000;
 dotenv.config();
 
@@ -27,7 +28,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('don"t waste  my time');
 });
-app.use('/users', authRouter);
+app.use('/users', authRoute);
+app.use('/private', privateRoute);
 
 app.listen(port, () => {
   console.log('Running on localhost:' + port);
