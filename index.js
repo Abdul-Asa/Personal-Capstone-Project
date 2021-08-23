@@ -3,8 +3,8 @@ const app = express();
 const path = require('path');
 const moongose = require('mongoose');
 const dotenv = require('dotenv');
-const authRoute = require('./routes/auth');
-const privateRoute = require('./routes/app');
+const authRoute = require('./api/routes/auth');
+const privateRoute = require('./api/routes/app');
 const port = process.env.PORT || 3000;
 dotenv.config();
 
@@ -12,7 +12,8 @@ dotenv.config();
 moongose.connect(
   process.env.URI,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
-  () => {
+  (err) => {
+    if (err) return console.log(err);
     console.log('connected to db!');
   }
 );

@@ -22,12 +22,11 @@ router.post('/signup', async (req, res) => {
       password: hashPassword,
     });
     const createdUser = await user.save();
-    const token = jwt.sign(
-      { _id: createdUser._id, name: createdUser.fullName },
-      process.env.TOKEN_KEY
-    );
-    await User.updateOne(user, { $set: { token: token } });
-
+    // const token = jwt.sign(
+    //   { _id: createdUser._id, name: createdUser.fullName },
+    //   process.env.TOKEN_KEY
+    // );
+    // await User.updateOne(user, { $set: { token: token } });
     res.send(createdUser.fullName + ' has been added to the database');
   } catch (err) {
     if (err.code === 11000) {
@@ -52,11 +51,11 @@ router.post('/login', async (req, res) => {
     );
     if (!validPassword) return res.status(400).send('Password is wrong');
     res.send('logged in');
-    // const token = jwt.sign(
-    //   { _id: existUser._id, name: existUser.fullName },
-    //   process.env.TOKEN_KEY
-    // );
-    // res.header('auth-token', token).send(token);
+    const token = jwt.sign(
+      { _id: existUser._id, name: existUser.fullName },
+      process.env.TOKEN_KEY
+    );
+    res.header('auth-token', token).send(existUser.fullName + ' is logged in');
   } catch (err) {
     res.status(400).send({ err, message: err.message });
   }
