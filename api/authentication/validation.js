@@ -3,14 +3,15 @@ const Joi = require('@hapi/joi');
 //sign up validation
 const signUpValidation = (data) => {
   const validationSchema = Joi.object({
-    fullName: Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string()
       .required()
       .min(8)
       .max(1024)
       .pattern(new RegExp('^[a-zA-Z0-9]{3,1024}$')),
-    phoneNumber: Joi.string().pattern(new RegExp('^[0-9]{3,30}$')),
+    hasAgreed: Joi.boolean().required(),
   });
 
   return validationSchema.validate(data);

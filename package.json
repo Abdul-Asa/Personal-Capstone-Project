@@ -1,5 +1,5 @@
 {
-  "name": "mongodb-tutorial",
+  "name": "capstone-project",
   "version": "1.0.0",
   "description": "Authentication",
   "main": "index.js",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "install": "^0.13.0",

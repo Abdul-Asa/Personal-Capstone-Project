@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors');
 const moongose = require('mongoose');
 const dotenv = require('dotenv');
 const authRoute = require('./api/routes/auth');
@@ -25,12 +26,15 @@ app.use((req, res, next) => {
 });
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 //ROUTES
-app.use(express.static('front end'));
+// app.use(express.static('front end'));
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve('front end', 'index.html'));
+  // res.sendFile(path.resolve('front end', 'index.html'));
+  res.send('welcome');
 });
+app.post('/', (req, res) => res.send(req.body));
 app.use('/users', authRoute);
 app.use('/private', privateRoute);
 

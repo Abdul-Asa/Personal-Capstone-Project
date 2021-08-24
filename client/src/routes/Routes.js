@@ -1,6 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import LandingPage from '../components/landing page/LandingPage';
+import Signup from '../components/entry page/Signup';
+import Login from '../components/entry page/Login';
+import Home from '../components/dashboard/Home';
+import PrivateRoute from './PrivateRoute';
 
 const Routes = () => {
   return (
@@ -9,15 +13,14 @@ const Routes = () => {
         <LandingPage />
       </Route>
       <Route path="/login">
-        <div className="container text-center">
-          <h1>Login</h1>
-        </div>
+        <Login />
       </Route>
       <Route path="/signup">
-        <div className="container text-center">
-          <h1>Sign up</h1>
-        </div>
+        <Signup />
       </Route>
+      <PrivateRoute path="/user/home">
+        <Home />
+      </PrivateRoute>
     </Switch>
   );
 };

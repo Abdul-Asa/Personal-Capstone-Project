@@ -16,7 +16,7 @@ const Footer = () => {
             <i className="fab fa-twitter" />
           </a>
           <a href="/">
-            <i class="fas fa-envelope"></i>
+            <i className="fas fa-envelope"></i>
           </a>
         </div>
         <div className="footer-border">

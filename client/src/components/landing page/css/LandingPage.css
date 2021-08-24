@@ -46,6 +46,7 @@
   background-color: transparent;
   border-color: white;
   font-size: large;
+  outline: none;
   width: 6rem;
   margin-left: 20px;
 }
@@ -54,11 +55,6 @@
   color: black;
   background-color: white;
   transition: all 0.3s ease-out;
-}
-
-.btn > a {
-  text-decoration: none;
-  color: inherit;
 }
 
 .footer {

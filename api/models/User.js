@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
-    fullName: {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
       type: String,
       required: true,
     },
@@ -16,22 +20,22 @@ const userSchema = new mongoose.Schema(
       required: true,
       min: 8,
     },
-    phoneNumber: {
-      type: Number,
-    },
-    homeAddress: {
-      type: String,
-    },
-    dateOfBirth: {
-      type: Date,
-    },
+    // phoneNumber: {
+    //   type: Number,
+    // },
+    // homeAddress: {
+    //   type: String,
+    // },
+    // dateOfBirth: {
+    //   type: Date,
+    // },
     hasAgreed: {
       type: Boolean,
       default: false,
     },
-    token: {
-      type: String,
-    },
+    // token: {
+    //   type: String,
+    // },
   },
   { timestamps: true }
 );
