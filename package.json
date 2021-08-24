@@ -4,7 +4,11 @@
   "description": "Authentication",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev":"nodemon index.js",
+    "start": "node index.js",
+    "test": "jest",
+    "debug": "ndb server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "Abdullah Shehu",
