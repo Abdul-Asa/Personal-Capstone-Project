@@ -1,11 +1,8 @@
 import { Route, Redirect } from 'react-router-dom';
+import { getUser } from '../utils/Common';
 
 function PrivateRoute({ children, ...rest }) {
-  const authentication = () => {
-    return JSON.parse(localStorage.getItem('currentUser'));
-  };
-
-  const user = authentication();
+  const user = getUser();
   return (
     <Route
       {...rest}

@@ -1,11 +1,9 @@
 import React from 'react';
 import Dashboard from './Dashboard';
+import { getUser } from '../../utils/Common';
 
 const Home = () => {
-  const authentication = () => {
-    return JSON.parse(localStorage.getItem('currentUser'));
-  };
-  const user = authentication();
+  const user = getUser();
   return (
     <div>
       <Dashboard />

@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { getUser } from '../../utils/Common';
+import { config } from '../../config';
 import './css/EntryPage.css';
 
 const Signup = () => {
+  const { BASEURL } = config;
+
   let history = useHistory();
+  const user = getUser();
+
+  if (user) {
+    history.push('/user/home');
+  }
 
   const [error, setError] = useState('');
   const [signupInfo, setSignupInfo] = useState({
@@ -22,18 +31,21 @@ const Signup = () => {
     });
   };
 
+  // const handleCheck = (e) => {
+  //   const { value } = e.target;
+  //   console.log(value);
+  // };
+
   const submitSignup = (e) => {
     e.preventDefault();
-    axios
-      .post('http://localhost:3000/users/signup', signupInfo)
-      .then((response) => {
-        if (response.data === 'success') {
-          setError('Account created');
-          history.push('/login');
-        } else {
-          setError(response.data);
-        }
-      });
+    axios.post(`${BASEURL}/users/signup`, signupInfo).then((response) => {
+      if (response.data === 'success') {
+        setError('Account created');
+        history.push('/login');
+      } else {
+        setError(response.data);
+      }
+    });
   };
   return (
     <div className="entry-page">
@@ -92,6 +104,17 @@ const Signup = () => {
               onChange={handleInput}
             />
           </div>
+          {/* <div className="form-group">
+            <label className="form-label">Accept Terms and Conditions</label>
+            <input
+              type="checkbox"
+              className="checkbox"
+              id="hasAgreed"
+              name="hasAgreed"
+              // value={signupInfo.hasAgreed}
+              // onChange={handleCheck}
+            />
+          </div> */}
           <p>{error}</p>
           <button className="entry-btn">Sign up</button>
         </form>

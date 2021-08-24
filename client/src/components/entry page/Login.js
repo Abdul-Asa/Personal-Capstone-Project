@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { setUser, getUser } from '../../utils/Common';
+import { config } from '../../config';
 import axios from 'axios';
 
 const Login = () => {
+  const { BASEURL } = config;
+
   const [error, setError] = useState('');
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
   let history = useHistory();
+  const user = getUser();
 
-  function handleClick() {
-    history.push('user/home');
-    console.log(history);
+  if (user) {
+    history.push('/user/home');
   }
 
   const handleInput = (e) => {
@@ -24,15 +28,12 @@ const Login = () => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    axios
-      .post('http://localhost:3000/users/login', loginInfo)
-      .then((response) => {
-        if (typeof response.data == 'object') {
-          console.log(response.data);
-          localStorage.setItem('currentUser', JSON.stringify(response.data));
-          history.push('user/home');
-        } else setError(response.data);
-      });
+    axios.post(`${BASEURL}/users/login`, loginInfo).then((response) => {
+      if (typeof response.data == 'object') {
+        setUser(response.data);
+        history.push('user/home');
+      } else setError(response.data);
+    });
   };
 
   return (
@@ -69,7 +70,6 @@ const Login = () => {
             />
           </div>
           <p>{error}</p>
-          <button onClick={handleClick}>test</button>
           <button className="entry-btn">Login</button>
         </form>
       </div>
