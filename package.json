@@ -4,7 +4,7 @@
   "description": "Authentication",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon index.js",
+    "dev": "nodemon index.js",
     "start": "node index.js",
     "test": "jest",
     "debug": "ndb server.js",
@@ -21,7 +21,8 @@
     "express": "^4.17.1",
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.7"
+    "mongoose": "^5.13.7",
+    "ndb": "^1.1.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

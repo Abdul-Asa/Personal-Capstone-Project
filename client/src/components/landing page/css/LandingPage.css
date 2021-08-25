@@ -1,10 +1,11 @@
 /*Desktop View*/
+
 .navbar {
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   height: 90px;
   width: 100%;
-  color: white;
 }
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -23,7 +24,6 @@
   color: white;
   font-size: 2rem;
   font-weight: 600;
-  cursor: pointer;
   text-decoration: none;
 }
 
@@ -38,7 +38,39 @@
 
 .logo:hover {
   text-decoration: none;
-  color: inherit;
+  color: white;
+}
+
+.logo-nav-wrap {
+  display: flex;
+}
+
+.links-container {
+  display: flex;
+  align-self: flex-end;
+  margin-left: 10%;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  list-style: none;
+}
+.nav-links > a {
+  text-decoration: none;
+}
+
+.nav-link {
+  font-size: larger;
+  border-radius: 5px;
+  padding: 8px 10px;
+  color: rgb(180, 180, 180);
+}
+.nav-link:hover {
+  color: black;
+  background-color: white;
+  transition: all 0.3s ease-out;
 }
 
 .btn {
@@ -50,13 +82,41 @@
   width: 6rem;
   margin-left: 20px;
 }
-
+.btn-logout {
+  color: white;
+  background-color: transparent;
+  border-color: white;
+  font-size: large;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: 1px solid;
+  outline: none;
+  outline-style: none;
+  width: fit-content;
+  margin-right: 20px;
+}
+.btn-logout > i {
+  padding: 4px;
+}
 .btn:hover {
   color: black;
   background-color: white;
   transition: all 0.3s ease-out;
 }
-
+.btn-logout:hover {
+  color: black;
+  background-color: white;
+  transition: all 0.3s ease-out;
+}
+.btn-container {
+  display: flex;
+}
+.mobile-icon {
+  display: none;
+}
+.mobile-menu {
+  display: none;
+}
 .footer {
   width: 100%;
   position: fixed;
@@ -108,7 +168,6 @@
     margin-left: 5%;
     margin-right: 5%;
   }
-
   .logo > h1 {
     display: none;
   }
@@ -124,6 +183,20 @@
     width: auto;
     margin-left: 10px;
   }
+  .btn-logout {
+    font-size: medium;
+    width: auto;
+    margin-left: 10px;
+    padding: 8px 10px;
+  }
+  .btn-a {
+    display: flex;
+  }
+  .mobile-icon {
+    color: white;
+    align-self: center;
+    font-size: 2rem;
+  }
   .footer {
     min-width: 336px;
   }
@@ -132,4 +205,41 @@
       height: 50px;
     }
   }
+}
+
+@media (max-width: 800px) {
+  .links-container {
+    display: none;
+  }
+  .mobile-icon {
+    display: block;
+    color: white;
+    align-self: center;
+    font-size: 2rem;
+  }
+  .mobile-menu {
+    color: white;
+    align-self: center;
+    font-size: 1.3rem;
+  }
+  .mobile-menu-list {
+    margin: 0 20px 0;
+    list-style: none;
+  }
+  .mobile-menu-link {
+    padding: 10px;
+    padding-left: 15px;
+    text-decoration: none;
+  }
+  .mobile-menu-link > a {
+    color: rgb(180, 180, 180);
+  }
+  .line {
+    border: 0;
+    height: 1px;
+    background-color: white;
+  }
+  /* .logo-nav-wrap {
+    display: block;
+  } */
 }
