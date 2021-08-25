@@ -29,19 +29,19 @@ app.use(express.json());
 app.use(cors());
 
 //ROUTES
-// // app.use(express.static('front end'));
-// app.get('/', (req, res) => {
-//   // res.sendFile(path.resolve('front end', 'index.html'));
-//   res.send('welcome');
-// });
-// app.post('/', (req, res) => res.send(req.body));
 if (process.env.NODE_ENV === 'production') {
-  // Set static folder
   app.use(express.static('client/build'));
   app.get('*/', (req, res) => {
     res.sendFile(path.resolve('client', 'build', 'index.html'));
   });
+} else {
+  app.use(express.static('front end'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve('front end', 'index.html'));
+  });
+  app.post('/', (req, res) => res.send(req.body));
 }
+
 app.use('/users', authRoute);
 app.use('/private', privateRoute);
 
