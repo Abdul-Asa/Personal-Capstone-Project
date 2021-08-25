@@ -28,7 +28,7 @@ const Login = () => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    axios.post(`${BASEURL}/users/login`, loginInfo).then((response) => {
+    axios.post(`${BASEURL}/auth/login`, loginInfo).then((response) => {
       if (typeof response.data == 'object') {
         setUser(response.data);
         history.push('user/home');

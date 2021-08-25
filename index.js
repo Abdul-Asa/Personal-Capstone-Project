@@ -2,22 +2,15 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
-const moongose = require('mongoose');
 const dotenv = require('dotenv');
+const databaseConnection = require('./api/database/database');
 const authRoute = require('./api/routes/auth');
-const privateRoute = require('./api/routes/app');
+const privateRoute = require('./api/routes/user');
 const port = process.env.PORT || 3000;
 dotenv.config();
 
 //DATABASE
-moongose.connect(
-  process.env.URI,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
-  (err) => {
-    if (err) return console.log(err);
-    console.log('connected to db!');
-  }
-);
+databaseConnection;
 
 //MIDDLEWARE
 app.use((req, res, next) => {
@@ -42,8 +35,8 @@ if (process.env.NODE_ENV === 'production') {
   app.post('/', (req, res) => res.send(req.body));
 }
 
-app.use('/users', authRoute);
-app.use('/private', privateRoute);
+app.use('/auth', authRoute);
+app.use('/user', privateRoute);
 
 app.listen(port, () => {
   console.log('Running on localhost:' + port);

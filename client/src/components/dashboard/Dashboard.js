@@ -11,7 +11,14 @@ const Dashboard = () => {
     localStorage.removeItem('currentUser');
   };
   return (
-    <nav className="navbar" style={toggle ? { height: 250 } : { height: 90 }}>
+    <nav
+      className="navbar"
+      style={
+        toggle
+          ? { height: 250, transition: 'all 0.3s ease' }
+          : { height: 90, transition: 'all 0.1s ease-in-out' }
+      }
+    >
       <div
         className="container"
         style={toggle ? { marginTop: 20 } : { marginTop: 0 }}
