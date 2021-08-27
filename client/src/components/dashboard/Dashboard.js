@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
+  let history = useHistory();
   const [toggle, setToggle] = useState(false);
 
   const openMobile = () => {
@@ -9,6 +11,7 @@ const Dashboard = () => {
 
   const logout = () => {
     localStorage.removeItem('currentUser');
+    history.push('/');
   };
   return (
     <nav
@@ -40,11 +43,9 @@ const Dashboard = () => {
         </div>
 
         <div className="btn-container">
-          <a href="/" className="btn-a">
-            <button className="btn-logout" onClick={logout}>
-              Logout <i className="fas fa-sign-out-alt"></i>
-            </button>
-          </a>
+          <button className="btn-logout" onClick={logout}>
+            Logout <i className="fas fa-sign-out-alt"></i>
+          </button>
           <div className="mobile-icon" onClick={openMobile}>
             {toggle ? (
               <i className="fas fa-times"></i>

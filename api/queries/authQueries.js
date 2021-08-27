@@ -20,7 +20,7 @@ const signupAction = async (req, res) => {
       password: hashPassword,
     });
     const createdUser = await user.save();
-    res.send('success');
+    res.send({ message: 'success', user: createdUser });
   } catch (err) {
     if (err.code === 11000) {
       res.send('Email already exists');

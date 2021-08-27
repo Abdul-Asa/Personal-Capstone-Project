@@ -8,6 +8,8 @@ const authRoute = require('./api/routes/auth');
 const privateRoute = require('./api/routes/user');
 const port = process.env.PORT || 3000;
 dotenv.config();
+//Seperate middlewares
+//Create a main entry for all routes
 
 //DATABASE
 databaseConnection;
