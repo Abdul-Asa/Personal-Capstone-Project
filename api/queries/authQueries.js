@@ -36,7 +36,7 @@ const signupAction = async (req, res) => {
     //send conf. code
     url = `${req.protocol}://${req.get('host')}/auth/confirm/${confirmation}`;
     sendConfirmationEmail(createdUser.firstName, createdUser.email, url);
-    res.send({ message: 'success', user: { firstName, lastName }, link: url });
+    res.send({ message: 'success', user: createdUser, link: url });
   } catch (err) {
     if (err.code === 11000) {
       res.send('Email already exists');
@@ -72,10 +72,18 @@ const loginAction = async (req, res) => {
     if (!validPassword) return res.send('Password is wrong');
 
     //give token
-    const token = jwt.sign({ _id: existUser._id }, process.env.TOKEN_KEY);
+    const token = jwt.sign(
+      { _id: existUser._id, role: existUser.role },
+      process.env.TOKEN_KEY
+    );
     res
       .header('token', token)
-      .send({ token: token, id: existUser._id, name: existUser.firstName });
+      .send({
+        token: token,
+        id: existUser._id,
+        name: existUser.firstName,
+        role: existUser.role,
+      });
   } catch (err) {
     res.send(err);
   }
@@ -83,11 +91,13 @@ const loginAction = async (req, res) => {
 
 const verifyUser = async (req, res, next) => {
   try {
+    //find user with the confirmation code
     const existUser = await User.findOne({
       confirmationCode: req.params.confirmationCode,
     });
     if (!existUser) return res.send('User not found');
 
+    //update status to active
     await User.updateOne(
       { confirmationCode: existUser.confirmationCode },
       {
@@ -97,6 +107,8 @@ const verifyUser = async (req, res, next) => {
       },
       { $currentDate: { lastUpdated: true } }
     );
+
+    //show the new result
     const check = await User.findOne({
       confirmationCode: req.params.confirmationCode,
     });

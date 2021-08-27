@@ -7,16 +7,20 @@ const userSchema = new mongoose.Schema(
     firstName: {
       type: String,
       required: true,
+      trim: true,
     },
     lastName: {
       type: String,
       required: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       index: { unique: true },
       lowercase: true,
+      trim: true,
+      match: new RegExp('/S+@S+.S+/'),
     },
     password: {
       type: String,
@@ -37,18 +41,26 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
-    // phoneNumber: {
-    //   type: Number,
-    // },
-    // homeAddress: {
-    //   type: String,
-    // },
-    // dateOfBirth: {
-    //   type: Date,
-    // },
+    phoneNumber: {
+      type: String,
+      match: new RegExp('^[0-9]+$'),
+      trim: true,
+    },
+    homeAddress: {
+      type: String,
+    },
+    baseState: {
+      type: String,
+    },
+    dateOfBirth: {
+      type: Date,
+    },
     hasAgreed: {
       type: Boolean,
       default: false,
+    },
+    myProfile: {
+      type: String,
     },
     // token: {
     //   type: String,
