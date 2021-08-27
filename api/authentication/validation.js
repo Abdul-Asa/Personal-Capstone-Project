@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+//Upgrade the validation schemas
 
 //sign up validation
 const signUpValidation = (data) => {

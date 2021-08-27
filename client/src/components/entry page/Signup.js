@@ -38,7 +38,7 @@ const Signup = () => {
 
   const submitSignup = (e) => {
     e.preventDefault();
-    axios.post(`${BASEURL}/users/signup`, signupInfo).then((response) => {
+    axios.post(`${BASEURL}/auth/signup`, signupInfo).then((response) => {
       if (response.data === 'success') {
         setError('Account created');
         history.push('/login');

@@ -22,7 +22,8 @@
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7",
-    "ndb": "^1.1.5"
+    "ndb": "^1.1.5",
+    "nodemailer": "^6.6.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
