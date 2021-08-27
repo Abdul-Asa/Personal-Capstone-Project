@@ -2,7 +2,7 @@ import React from 'react';
 import Dashboard from './Dashboard';
 import Footer from '../landing page/Footer';
 import { getUser } from '../../utils/Common';
-import { Box, Center, Container, Heading, Text } from '@chakra-ui/react';
+import { Box, Container, Heading, Text } from '@chakra-ui/react';
 // import axios from 'axios';
 // import { config } from '../../config';
 
