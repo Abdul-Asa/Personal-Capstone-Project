@@ -60,7 +60,7 @@ const loginAction = async (req, res) => {
 
     //if user has accepted confirmation code
     if (existUser.status != 'Active') {
-      return res.status(401).send({
+      return res.send({
         message: 'Pending Account. Please Verify Your Email!',
       });
     }
@@ -76,14 +76,12 @@ const loginAction = async (req, res) => {
       { _id: existUser._id, role: existUser.role },
       process.env.TOKEN_KEY
     );
-    res
-      .header('token', token)
-      .send({
-        token: token,
-        id: existUser._id,
-        name: existUser.firstName,
-        role: existUser.role,
-      });
+    res.header('token', token).send({
+      token: token,
+      id: existUser._id,
+      name: existUser.firstName,
+      role: existUser.role,
+    });
   } catch (err) {
     res.send(err);
   }

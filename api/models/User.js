@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema(
       index: { unique: true },
       lowercase: true,
       trim: true,
-      match: new RegExp('/S+@S+.S+/'),
     },
     password: {
       type: String,
@@ -43,7 +42,6 @@ const userSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: String,
-      match: new RegExp('^[0-9]+$'),
       trim: true,
     },
     homeAddress: {

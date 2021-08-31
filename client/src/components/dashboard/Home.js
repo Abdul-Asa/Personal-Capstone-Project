@@ -1,52 +1,108 @@
 import React from 'react';
+import {
+  IconButton,
+  Box,
+  Flex,
+  useColorModeValue,
+  Drawer,
+  DrawerContent,
+  DrawerOverlay,
+  DrawerCloseButton,
+  useDisclosure,
+  useMediaQuery,
+  Heading,
+} from '@chakra-ui/react';
+import { FiMenu } from 'react-icons/fi';
+import Welcome from './Welcome';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
+
 import Dashboard from './Dashboard';
-import Footer from '../landing page/Footer';
-import { getUser } from '../../utils/Common';
-import { Box, Container, Heading, Text } from '@chakra-ui/react';
-// import axios from 'axios';
-// import { config } from '../../config';
+import Contact from './Contact';
+import Settings from './Settings';
+import Profile from './Profile';
 
 const Home = () => {
-  // const { BASEURL } = config;
-  //   let header = {
-  //     headers: {
-  //       'auth-token': user.token,
-  //     },
-  //   };
-  // const testAuth = () => {
-  //   axios.get(`${BASEURL}/private`, header).then((response) => {
-  //     console.log(response);
-  //   });
-  // };
-  const user = getUser();
-
+  // const { colorMode, toggleColorMode } = useColorMode();
+  let { path } = useRouteMatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+  const [isDesktop] = useMediaQuery('(min-width: 48em)');
   return (
-    <div>
-      <Dashboard />
-      <Box>
-        <Box marginTop="10" maxWidth="container.sm" marginLeft="10%">
-          <Heading as="h3" size="xl">
-            Welcome, {user.name}
-          </Heading>
-        </Box>
-        <Container
-          backgroundColor="black"
-          width="90%"
-          padding="30px"
-          borderRadius="10"
-          textAlign="left"
-          marginLeft="10%"
-          marginRight="10%"
-          color="white"
+    <Box
+      minH="100vh"
+      bg={useColorModeValue('whiteAlpha.50', 'gray.900')}
+      transition="3s ease"
+      as="section"
+    >
+      {isDesktop ? (
+        <Dashboard />
+      ) : (
+        <Drawer
+          isOpen={isOpen}
+          placement="left"
+          onClose={onClose}
+          finalFocusRef={btnRef}
         >
-          <Box>
-            <Text as="h5">Set up your Profile</Text>
-          </Box>
-        </Container>
-      </Box>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton zIndex="overlay" />
+            <Dashboard w="full" />
+          </DrawerContent>
+        </Drawer>
+      )}
+      <Box ml={{ base: 0, md: '305px' }} transition=".3s ease">
+        <Flex
+          as="header"
+          align="center"
+          justify={isDesktop ? 'center' : 'space-between'}
+          w="full"
+          px="4"
+          bg={useColorModeValue('white', 'gray.800')}
+          borderBottomWidth="1px"
+          borderColor={useColorModeValue('inherit', 'gray.700')}
+          h="14"
+        >
+          <IconButton
+            aria-label="Menu"
+            display={{ base: 'inline-flex', md: 'none' }}
+            onClick={onOpen}
+            icon={<FiMenu />}
+            size="sm"
+          />
+          <Heading fontFamily="Helvetica Neue" fontSize="xl">
+            Padrone
+          </Heading>
+          <Box></Box>
+        </Flex>
 
-      <Footer />
-    </div>
+        <Box as="main" p="4">
+          <Switch>
+            <Route exact path={`${path}/`}>
+              <Welcome />
+            </Route>
+            <Route path={`${path}/profile`}>
+              <Profile />
+            </Route>
+            <Route path={`${path}/settings`}>
+              <Settings />
+            </Route>
+            <Route path={`${path}/contact`}>
+              <Contact />
+            </Route>
+            <Route path={`${path}/post-job`}>
+              <Contact />
+            </Route>
+            <Route path={`${path}/apply-job`}>
+              <Contact />
+            </Route>
+            <Route path={`${path}/search-job`}>
+              <Contact />
+            </Route>
+          </Switch>
+          {/* <Box borderWidth="4px" borderStyle="dashed" rounded="md" h="96" /> */}
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

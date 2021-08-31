@@ -39,11 +39,11 @@ const Signup = () => {
   const submitSignup = (e) => {
     e.preventDefault();
     axios.post(`${BASEURL}/auth/signup`, signupInfo).then((response) => {
-      if (response.data === 'success') {
+      if (response.data.message === 'success') {
         setError('Account created');
         history.push('/login');
       } else {
-        setError(response.data);
+        setError(response.data.message);
       }
     });
   };
