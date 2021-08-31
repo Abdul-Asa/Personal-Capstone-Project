@@ -9,6 +9,12 @@ import {
   Container,
   Button,
   Stack,
+  Spinner,
+  AlertDialog,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  Center,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -22,8 +28,10 @@ import {
 } from 'react-icons/fi';
 
 import { useRouteMatch } from 'react-router-dom';
+import { logOutAction } from '../../utils/Actions';
 
 const Dashboard = ({ ...rest }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
   let { path } = useRouteMatch();
 
   return (
@@ -166,8 +174,31 @@ const Dashboard = ({ ...rest }) => {
             align="left"
             justifyContent="flex-start"
             bg="transparent"
+            onClick={() => {
+              setIsOpen(true);
+              logOutAction();
+              setTimeout(() => {
+                setIsOpen(false);
+              }, 1000);
+            }}
           >
             <FiLogOut /> <Text mx="5">Logout</Text>
+            <AlertDialog
+              isOpen={isOpen}
+              // leastDestructiveRef={cancelRef}
+              // onClose={onClose}
+            >
+              <AlertDialogOverlay>
+                <AlertDialogContent>
+                  <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                    <Center>
+                      <Text mx="20px">Logging out</Text>
+                      <Spinner />
+                    </Center>
+                  </AlertDialogHeader>
+                </AlertDialogContent>
+              </AlertDialogOverlay>
+            </AlertDialog>
           </Button>
         </Stack>
       </Flex>
