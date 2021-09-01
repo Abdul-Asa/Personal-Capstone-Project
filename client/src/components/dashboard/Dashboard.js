@@ -27,12 +27,13 @@ import {
   FiPlusCircle,
 } from 'react-icons/fi';
 
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { logOutAction } from '../../utils/Actions';
 
 const Dashboard = ({ ...rest }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   let { path } = useRouteMatch();
+  const history = useHistory();
 
   return (
     <Box
@@ -179,6 +180,7 @@ const Dashboard = ({ ...rest }) => {
               logOutAction();
               setTimeout(() => {
                 setIsOpen(false);
+                history.push('/');
               }, 1000);
             }}
           >

@@ -31,7 +31,7 @@ const Home = () => {
     <Box
       minH="100vh"
       bg={useColorModeValue('whiteAlpha.50', 'gray.900')}
-      transition="3s ease"
+      transition="0.3s ease"
       as="section"
     >
       {isDesktop ? (
@@ -61,6 +61,7 @@ const Home = () => {
           borderBottomWidth="1px"
           borderColor={useColorModeValue('inherit', 'gray.700')}
           h="14"
+          minW="300px"
         >
           <IconButton
             aria-label="Menu"
@@ -76,30 +77,39 @@ const Home = () => {
         </Flex>
 
         <Box as="main" p="4">
-          <Switch>
-            <Route exact path={`${path}/`}>
-              <Welcome />
-            </Route>
-            <Route path={`${path}/profile`}>
-              <Profile />
-            </Route>
-            <Route path={`${path}/settings`}>
-              <Settings />
-            </Route>
-            <Route path={`${path}/contact`}>
-              <Contact />
-            </Route>
-            <Route path={`${path}/post-job`}>
-              <Contact />
-            </Route>
-            <Route path={`${path}/apply-job`}>
-              <Contact />
-            </Route>
-            <Route path={`${path}/search-job`}>
-              <Contact />
-            </Route>
-          </Switch>
-          {/* <Box borderWidth="4px" borderStyle="dashed" rounded="md" h="96" /> */}
+          <Box
+            borderWidth="2px"
+            borderStyle="solid"
+            rounded="md"
+            // maxH="600px"
+            minH="620px"
+            minW="280px"
+            shadow="md"
+          >
+            <Switch>
+              <Route exact path={`${path}/`}>
+                <Welcome />
+              </Route>
+              <Route path={`${path}/profile`}>
+                <Profile />
+              </Route>
+              <Route path={`${path}/settings`}>
+                <Settings />
+              </Route>
+              <Route path={`${path}/contact`}>
+                <Contact />
+              </Route>
+              <Route path={`${path}/post-job`}>
+                <Contact />
+              </Route>
+              <Route path={`${path}/apply-job`}>
+                <Contact />
+              </Route>
+              <Route path={`${path}/search-job`}>
+                <Contact />
+              </Route>
+            </Switch>
+          </Box>
         </Box>
       </Box>
     </Box>
