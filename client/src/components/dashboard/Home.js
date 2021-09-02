@@ -81,10 +81,11 @@ const Home = () => {
             borderWidth="2px"
             borderStyle="solid"
             rounded="md"
-            // maxH="600px"
-            minH="620px"
+            minH="650px"
             minW="280px"
             shadow="md"
+            // height="00px"
+            overflow="auto"
           >
             <Switch>
               <Route exact path={`${path}/`}>

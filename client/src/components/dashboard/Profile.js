@@ -9,13 +9,14 @@ import {
   FormHelperText,
   Select,
   Stack,
-  // useColorModeValue,
+  useColorModeValue,
   Button,
   // IconButton,
+  Avatar,
   useMediaQuery,
   Input,
   // Spacer,
-  // Text,
+  Text,
   // WrapItem,
   // AlertDialog,
   // AlertDialogBody,
@@ -95,7 +96,10 @@ const Profile = () => {
   const UserInfo = (props) => {
     return (
       <Stack spacing="10px">
-        <InputGroup display={{ base: 'block', md: 'flex' }}>
+        <InputGroup
+          display={{ base: 'block', md: 'flex' }}
+          borderColor={useColorModeValue('gray.300', 'white')}
+        >
           <Input placeholder="First Name"></Input>
           <Input
             ml={{ base: 'none', md: '3px' }}
@@ -103,12 +107,12 @@ const Profile = () => {
             placeholder="Last Name"
           ></Input>
         </InputGroup>
-        <InputGroup>
+        <InputGroup borderColor={useColorModeValue('gray.300', 'white')}>
           <InputLeftAddon children="+234" />
           <Input type="tel" placeholder="Phone Number" />
         </InputGroup>
 
-        <InputGroup>
+        <InputGroup borderColor={useColorModeValue('gray.300', 'white')}>
           <Input
             type="text"
             placeholder="Date of Birth"
@@ -118,18 +122,65 @@ const Profile = () => {
             onBlur={getDate}
           />
         </InputGroup>
-        <InputGroup>
+        <InputGroup borderColor={useColorModeValue('gray.300', 'white')}>
           <Input type="text" placeholder="Home Address" />
         </InputGroup>
+        <FormControl>
+          <FormLabel>Which state are you based in?</FormLabel>
+          <Select
+            placeholder="Select State"
+            borderColor={useColorModeValue('gray.300', 'white')}
+          >
+            <option value="option1">Lagos</option>
+            <option value="option1">Abuja</option>
+            <option value="option2">Kwara</option>
+            <option value="option3">Port-Harcourt</option>
+          </Select>
+        </FormControl>
       </Stack>
     );
   };
 
   const ProfileInfo = (props) => {
     return (
-      <Box>
-        <Textarea placeholder="Edit your profile" width="full" maxH="300px" />
-      </Box>
+      <Stack spacing="20px">
+        <Textarea
+          placeholder="Edit your profile"
+          width="full"
+          maxH="100px"
+          borderColor={useColorModeValue('gray.300', 'white')}
+        />
+        <FormControl>
+          <Flex alignItems="center" mt={1}>
+            <Avatar
+              boxSize="80px"
+              bg={useColorModeValue('gray.100', 'gray.800')}
+              // src={(e) => e.target.value}
+              // icon={
+              //   <Icon
+              //     as={FaUser}
+              //     boxSize={9}
+              //     mt={3}
+              //     rounded="full"
+              //     color={useColorModeValue('gray.300', 'gray.700')}
+              //   />
+              //}
+            />
+            <Input
+              type="file"
+              ml={5}
+              variant="outline"
+              size="sm"
+              fontWeight="medium"
+              placeholder="Choose Image"
+              _focus={{ shadow: 'none' }}
+            />
+          </Flex>
+        </FormControl>
+        <Text fontSize="xs" color={useColorModeValue('gray.500', 'gray.50')}>
+          PNG, JPG, GIF up to 10MB
+        </Text>
+      </Stack>
     );
   };
 
@@ -143,7 +194,10 @@ const Profile = () => {
               This should be the field you have the most experience in
             </FormHelperText>
           </FormLabel>
-          <Select placeholder="Select main occupation">
+          <Select
+            placeholder="Select main occupation"
+            borderColor={useColorModeValue('gray.300', 'white')}
+          >
             <option value="option1">Software Engineer</option>
             <option value="option2">Website Developer</option>
             <option value="option3">UI/UX Designer</option>
@@ -151,13 +205,20 @@ const Profile = () => {
         </FormControl>
         <FormControl>
           <FormLabel>Choose additional occupations:</FormLabel>
-          <Select placeholder="Select occupation">
+          <Select
+            placeholder="Select occupation"
+            borderColor={useColorModeValue('gray.300', 'white')}
+          >
             <option value="option1">Software Engineer</option>
             <option value="option1">Mechanical Engineer</option>
             <option value="option2">Website Developer</option>
             <option value="option3">UI/UX Designer</option>
           </Select>
-          <Select placeholder="Select occupation" mt="10px">
+          <Select
+            placeholder="Select occupation"
+            mt="10px"
+            borderColor={useColorModeValue('gray.300', 'white')}
+          >
             <option value="option1">Software Engineer</option>
             <option value="option1">Mechanical Engineer</option>
             <option value="option2">Website Developer</option>
@@ -173,7 +234,10 @@ const Profile = () => {
       <Stack spacing="20px">
         <FormControl>
           <FormLabel>Select the highest degree you have earned:</FormLabel>
-          <Select placeholder="Select highest degree earned">
+          <Select
+            placeholder="Select highest degree earned"
+            borderColor={useColorModeValue('gray.300', 'white')}
+          >
             <option value="option1">None</option>
             <option value="option2">Secondary School Certificate</option>
             <option value="option3">Bachelors Degree</option>
@@ -184,11 +248,11 @@ const Profile = () => {
         </FormControl>
         <FormControl>
           <FormLabel>Upload proof of document</FormLabel>
-          <Input type="file" border="none" />
+          <Input type="file" border="none" multiple />
         </FormControl>
         <FormControl>
-          <FormLabel>Upload your CV (if available)</FormLabel>
-          <Input type="file" border="none" />
+          <FormLabel>Upload your CV or other credentials</FormLabel>
+          <Input type="file" border="none" multiple />
         </FormControl>
       </Stack>
     );

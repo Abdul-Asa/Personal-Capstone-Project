@@ -20,15 +20,15 @@ import {
   FiHome,
   FiSettings,
   FiSearch,
-  FiBookmark,
   FiUser,
   FiPhoneCall,
   FiLogOut,
-  FiPlusCircle,
 } from 'react-icons/fi';
-
+import { CgWorkAlt } from 'react-icons/cg';
+import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { logOutAction } from '../../utils/Actions';
+import floppa from './Floppa.jpeg';
 
 const Dashboard = ({ ...rest }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -58,7 +58,7 @@ const Dashboard = ({ ...rest }) => {
           as="button"
         >
           <WrapItem>
-            <Avatar size="md" name="Floppa" />
+            <Avatar size="md" name="Floppa" src={floppa} />
           </WrapItem>
           <WrapItem mx="10">
             <Container maxW="200px">
@@ -117,7 +117,7 @@ const Dashboard = ({ ...rest }) => {
             bg="transparent"
             _hover={{ textDecorationLine: 'none', bg: 'gray.200' }}
           >
-            <FiPlusCircle /> <Text mx="5">Post</Text>
+            <IoPaperPlaneOutline /> <Text mx="5">Post</Text>
           </Button>
           <Button
             width="80%"
@@ -129,7 +129,7 @@ const Dashboard = ({ ...rest }) => {
             textDecoration="none"
             _hover={{ textDecorationLine: 'none', bg: 'gray.200' }}
           >
-            <FiBookmark /> <Text mx="5">Apply</Text>
+            <CgWorkAlt /> <Text mx="5">Apply</Text>
           </Button>
           <Button
             width="80%"
