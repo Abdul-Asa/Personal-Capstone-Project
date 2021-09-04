@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IconButton,
   Box,
@@ -11,11 +11,19 @@ import {
   useDisclosure,
   useMediaQuery,
   Heading,
+  Spinner,
+  AlertDialog,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogBody,
+  Center,
+  Text,
 } from '@chakra-ui/react';
 import { FiMenu } from 'react-icons/fi';
 import Welcome from './Welcome';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-
+import { getUserInfo } from '../../utils/Actions';
 import Dashboard from './Dashboard';
 import Contact from './Contact';
 import Settings from './Settings';
@@ -23,10 +31,26 @@ import Profile from './Profile';
 
 const Home = () => {
   // const { colorMode, toggleColorMode } = useColorMode();
+
+  const [userInfo, setUserinfo] = useState({});
+  const [loading, setLoading] = useState(true);
+
   let { path } = useRouteMatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [isDesktop] = useMediaQuery('(min-width: 48em)');
+  useEffect(() => {
+    console.log('Fetching...');
+    const user = getUserInfo();
+    user
+      .then((data) => {
+        setUserinfo(data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => console.log(err));
+  }, [loading]);
   return (
     <Box
       minH="100vh"
@@ -35,7 +59,7 @@ const Home = () => {
       as="section"
     >
       {isDesktop ? (
-        <Dashboard />
+        <Dashboard info={userInfo} />
       ) : (
         <Drawer
           isOpen={isOpen}
@@ -46,11 +70,11 @@ const Home = () => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton zIndex="overlay" />
-            <Dashboard w="full" />
+            <Dashboard w="full" info={userInfo} />
           </DrawerContent>
         </Drawer>
       )}
-      <Box ml={{ base: 0, md: '305px' }} transition=".3s ease">
+      <Box ml={{ base: 0, md: '335px' }} transition=".3s ease">
         <Flex
           as="header"
           align="center"
@@ -89,13 +113,28 @@ const Home = () => {
           >
             <Switch>
               <Route exact path={`${path}/`}>
-                <Welcome />
+                <AlertDialog isOpen={loading}>
+                  <AlertDialogOverlay>
+                    <AlertDialogContent>
+                      <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                        <Center>
+                          <Text mx="20px">Loading</Text>
+                          <Spinner />
+                        </Center>
+                      </AlertDialogHeader>
+                      <AlertDialogBody>
+                        <Center>Just a moment </Center>
+                      </AlertDialogBody>
+                    </AlertDialogContent>
+                  </AlertDialogOverlay>
+                </AlertDialog>
+                <Welcome info={userInfo} />
               </Route>
               <Route path={`${path}/profile`}>
                 <Profile />
               </Route>
               <Route path={`${path}/settings`}>
-                <Settings />
+                <Settings info={userInfo} />
               </Route>
               <Route path={`${path}/contact`}>
                 <Contact />

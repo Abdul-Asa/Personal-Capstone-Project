@@ -50,14 +50,30 @@ const userSchema = new mongoose.Schema(
     baseState: {
       type: String,
     },
-    dateOfBirth: {
-      type: Date,
+    over18: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
     hasAgreed: {
       type: Boolean,
       default: false,
+      required: true,
     },
     myProfile: {
+      type: String,
+    },
+    myProfession: {
+      type: String,
+    },
+    myProfession2: {
+      type: String,
+    },
+    myProfession3: {
+      type: String,
+    },
+
+    highestDegree: {
       type: String,
     },
     // token: {

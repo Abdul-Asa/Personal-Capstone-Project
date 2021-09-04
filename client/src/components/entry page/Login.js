@@ -29,10 +29,10 @@ const Login = () => {
   const submitLogin = (e) => {
     e.preventDefault();
     axios.post(`${BASEURL}/auth/login`, loginInfo).then((response) => {
-      if (typeof response.data == 'object') {
+      if (response.data.message === 'success') {
         setUser(response.data);
         history.push('user/home');
-      } else setError(response.data);
+      } else setError(response.data.message);
     });
   };
 

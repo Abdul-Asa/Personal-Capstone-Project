@@ -1,21 +1,22 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const { updateUserValidation } = require('../authentication/validation');
 
 const getSingleUser = async (req, res) => {
   try {
     const user_id = req.params.id;
     const existUser = await User.findOne({ _id: user_id });
-    if (!existUser) return res.send("User with doesn't exist");
-    res.json(existUser);
+    if (!existUser) return res.send({ message: "User with doesn't exist" });
+    res.json({ message: 'success', user: existUser });
   } catch (err) {
-    return res.json(err);
+    return res.json({ error: err, message: err.message });
   }
 };
 
 const getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find();
-    res.json(allUsers);
+    res.json({ message: 'success', users: allUsers });
   } catch (err) {
     return res.json(err);
   }
@@ -27,7 +28,7 @@ const deleteSingleUser = async (req, res) => {
     const existUser = await User.findOne({ _id: user_id });
     if (!existUser) return res.send("User with doesn't exist");
     const deletedUser = await User.deleteOne({ _id: user_id });
-    res.json(deletedUser);
+    res.json({ message: 'success', user: deletedUser });
   } catch (err) {
     return res.json(err);
   }
@@ -38,6 +39,13 @@ const updateSingleUser = async (req, res) => {
     const user_id = req.params.id;
     const existUser = await User.findOne({ _id: user_id });
     if (!existUser) return res.send("User with doesn't exist");
+    const { error } = updateUserValidation(req.body);
+    if (error) {
+      return res.send({
+        err: error.details[0],
+        message: error.details[0].message,
+      });
+    }
     const keyObj = Object.keys(req.body);
     const updatedFields = {};
     keyObj.map(async (index) => {
@@ -52,9 +60,9 @@ const updateSingleUser = async (req, res) => {
       { $set: updatedFields },
       { $currentDate: { lastUpdated: true } }
     );
-    res.json(updatedUser);
+    res.json({ message: 'success', user: updatedUser });
   } catch (err) {
-    return res.json(err);
+    return res.json({ message: err.message, error: err });
   }
 };
 
@@ -80,11 +88,13 @@ const updateSingleUserPassword = async (req, res) => {
       { $set: { password: hashPassword } },
       { $currentDate: { lastUpdated: true } }
     );
-    res.json(updatedUser);
+    res.json({ message: 'success', user: updatedUser });
   } catch (err) {
     return res.json(err);
   }
 };
+
+const updateProfilePic = async (req, res) => {};
 
 module.exports = {
   getSingleUser,

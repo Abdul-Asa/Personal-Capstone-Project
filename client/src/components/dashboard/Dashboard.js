@@ -28,9 +28,9 @@ import { CgWorkAlt } from 'react-icons/cg';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { logOutAction } from '../../utils/Actions';
-import floppa from './Floppa.jpeg';
+import floppa from './images/Floppa.jpeg';
 
-const Dashboard = ({ ...rest }) => {
+const Dashboard = ({ info, ...rest }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   let { path } = useRouteMatch();
   const history = useHistory();
@@ -42,7 +42,7 @@ const Dashboard = ({ ...rest }) => {
       // bg={useColorModeValue('white', 'gray.900')}
       shadow="md"
       // w={{ base: 'full', md: '302px' }}
-      w="70"
+      w="335px"
       pos="fixed"
       h="full"
       {...rest}
@@ -58,11 +58,11 @@ const Dashboard = ({ ...rest }) => {
           as="button"
         >
           <WrapItem>
-            <Avatar size="md" name="Floppa" src={floppa} />
+            <Avatar size="md" name={info.firstName} src={floppa} />
           </WrapItem>
           <WrapItem mx="10">
             <Container maxW="200px">
-              <Text fontSize="md">floppa@gmail.com</Text>
+              <Text fontSize="md">{info.email}</Text>
             </Container>
           </WrapItem>
         </HStack>

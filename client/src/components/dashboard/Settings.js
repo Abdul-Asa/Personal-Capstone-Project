@@ -23,13 +23,26 @@ import { FaSun, FaMoon, FaCaretDown, FaCaretUp, FaTrash } from 'react-icons/fa';
 const Settings = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [openAccordion, setAccordion] = useState(false);
-
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef();
+  const [passwordForm, setPasswordForm] = useState({
+    oldPassword: '',
+    newPassword: '',
+  });
 
   const toggleAccordion = () => {
     setAccordion(!openAccordion);
+  };
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setPasswordForm((inputDetails) => {
+      return { ...inputDetails, [name]: value };
+    });
+  };
+
+  const changePassword = () => {
+    console.log(passwordForm);
   };
 
   return (
@@ -87,9 +100,23 @@ const Settings = () => {
             </Flex>
             {openAccordion && (
               <Stack spacing="10px" marginTop="5%">
-                <Input placeholder="Old Password" size="sm" />
-                <Input placeholder="New Password" size="sm" />
-                <Button variant="outline">Change</Button>
+                <Input
+                  placeholder="Old Password"
+                  size="sm"
+                  defaultValue={passwordForm.oldPassword}
+                  onChange={handleInput}
+                  name="oldPassword"
+                />
+                <Input
+                  placeholder="New Password"
+                  size="sm"
+                  defaultValue={passwordForm.newPassword}
+                  onChange={handleInput}
+                  name="newPassword"
+                />
+                <Button variant="outline" onClick={changePassword}>
+                  Change
+                </Button>
               </Stack>
             )}
           </Box>
