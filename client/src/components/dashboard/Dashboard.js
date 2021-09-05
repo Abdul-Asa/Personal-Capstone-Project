@@ -83,7 +83,7 @@ const Dashboard = ({ info, ...rest }) => {
           </WrapItem>
           <WrapItem mx="10">
             <Container maxW="200px">
-              {!userInfo === null ? (
+              {!userInfo ? (
                 <Skeleton />
               ) : (
                 <Text fontSize="md">{userInfo.email}</Text>
