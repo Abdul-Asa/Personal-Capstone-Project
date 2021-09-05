@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   Flex,
+  Skeleton,
 } from '@chakra-ui/react';
 import React from 'react';
 // import floppete from './images/Floppete.jpeg';
@@ -15,61 +16,78 @@ import { BsFillBriefcaseFill } from 'react-icons/bs';
 
 const UserCard = ({ info, ...rest }) => {
   let jobs = '';
-  if (info.myProfession3) {
-    jobs =
-      info.myProfession +
-      ', ' +
-      info.myProfession2 +
-      ' and ' +
-      info.myProfession3;
+  let phoneNumber = '';
+  let degree = '';
+  let baseState = '';
+  let email = '';
+  let profile = '';
+  if (info) {
+    if (info.myProfession3) {
+      jobs =
+        info.myProfession +
+        ', ' +
+        info.myProfession2 +
+        ' and ' +
+        info.myProfession3;
+    }
+    if (info.myProfession2 && !info.myProfession3) {
+      jobs = info.myProfession + ' and ' + info.myProfession2;
+    }
+    if (!info.myProfession2) {
+      jobs = info.myProfession;
+    }
+    if (!info.myProfession) {
+      jobs = 'N/A';
+    }
+    phoneNumber = '+234' + info.phoneNumber;
+    if (!info.phoneNumber) {
+      phoneNumber = 'N/A';
+    }
+    degree = info.highestDegree;
+    if (!info.highestDegree) {
+      degree = 'N/A';
+    }
+    baseState = info.baseState + ', Nigeria';
+    if (!info.baseState) {
+      baseState = 'N/A';
+    }
+    email = info.email;
+    if (!info.baseState) {
+      email = 'N/A';
+    }
+    profile = info.myProfile;
+    if (!info.myProfile) {
+      profile = 'Edit your profile description';
+    }
   }
-  if (info.myProfession2 && !info.myProfession3) {
-    jobs = info.myProfession + ' and ' + info.myProfession2;
-  }
-  if (!info.myProfession2) {
-    jobs = info.myProfession;
-  }
-  if (!info.myProfession) {
-    jobs = 'N/A';
-  }
-  let phoneNumber = '+234' + info.phoneNumber;
-  if (!info.phoneNumber) {
-    phoneNumber = 'N/A';
-  }
-  let degree = info.highestDegree;
-  if (!info.highestDegree) {
-    degree = 'N/A';
-  }
-  let baseState = info.baseState + ', Nigeria';
-  if (!info.baseState) {
-    baseState = 'N/A';
-  }
-  let email = info.email;
-  if (!info.baseState) {
-    email = 'N/A';
-  }
-  let profile = info.myProfile;
-  if (!info.myProfile) {
-    profile = 'Edit your profile description';
-  }
+
   return (
     <Box shadow="lg" rounded="lg" borderWidth="0.5px" {...rest}>
       <Stack my="5%">
         <Flex ml="10%" alignItems="center">
-          <Avatar
-            boxSize={{ base: '70px', md: '140px' }}
-            src={info.image}
-            borderWidth="1px"
-            borderColor="gray.300"
-          />
+          {info ? (
+            <Avatar
+              boxSize={{ base: '70px', md: '140px' }}
+              src={info.image}
+              borderWidth="1px"
+              borderColor="gray.300"
+            />
+          ) : (
+            <Skeleton />
+          )}
+
           <VStack
             alignItems="flex-start"
             padding={{ base: '15px', md: '25px' }}
           >
             <Box>
-              <Heading size="lg">
-                {info.firstName} {info.lastName}
-              </Heading>
+              {info ? (
+                <Heading size="lg">
+                  {info.firstName} {info.lastName}
+                </Heading>
+              ) : (
+                <Skeleton />
+              )}
             </Box>
             <Box>
               <Text fontWeight="600">{jobs} </Text>
