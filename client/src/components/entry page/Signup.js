@@ -22,6 +22,7 @@ const Signup = () => {
     email: '',
     password: '',
     hasAgreed: true,
+    over18: true,
   });
 
   const handleInput = (e) => {
@@ -39,11 +40,11 @@ const Signup = () => {
   const submitSignup = (e) => {
     e.preventDefault();
     axios.post(`${BASEURL}/auth/signup`, signupInfo).then((response) => {
-      if (response.data === 'success') {
-        setError('Account created');
-        history.push('/login');
+      if (response.data.message === 'success') {
+        setError(response.data.link);
+        // history.push('/login');
       } else {
-        setError(response.data);
+        setError(response.data.message);
       }
     });
   };

@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const multer = require('multer');
 const databaseConnection = require('./api/database/database');
 const authRoute = require('./api/routes/auth');
 const privateRoute = require('./api/routes/user');
@@ -36,6 +37,18 @@ if (process.env.NODE_ENV === 'production') {
   });
   app.post('/', (req, res) => res.send(req.body));
 }
+//Storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
 
 app.use('/auth', authRoute);
 app.use('/user', privateRoute);

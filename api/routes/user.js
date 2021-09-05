@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const parser = require('../database/cloudinary.config');
+
 const {
   userAuthentication,
   adminAuthentication,
@@ -10,6 +12,7 @@ const {
   deleteSingleUser,
   updateSingleUser,
   updateSingleUserPassword,
+  updateProfilePic,
 } = require('../queries/userQueries');
 
 router.get('/:id', userAuthentication, getSingleUser);
@@ -21,5 +24,6 @@ router.patch(
   userAuthentication,
   updateSingleUserPassword
 );
+router.patch('/profile-pic/:id', parser.single('image'), updateProfilePic);
 
 module.exports = router;

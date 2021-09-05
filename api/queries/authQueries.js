@@ -12,7 +12,10 @@ const signupAction = async (req, res) => {
     //validation
     const { error } = signUpValidation(req.body);
     if (error) {
-      return res.send(error.details[0].message);
+      return res.send({
+        err: error.details[0],
+        message: error.details[0].message,
+      });
     }
 
     //hash passowrds
@@ -36,10 +39,10 @@ const signupAction = async (req, res) => {
     //send conf. code
     url = `${req.protocol}://${req.get('host')}/auth/confirm/${confirmation}`;
     sendConfirmationEmail(createdUser.firstName, createdUser.email, url);
-    res.send({ message: 'success', user: { firstName, lastName }, link: url });
+    res.send({ message: 'success', user: createdUser, link: url });
   } catch (err) {
     if (err.code === 11000) {
-      res.send('Email already exists');
+      res.send({ message: 'Email already exists' });
     } else {
       res.send({ err, message: err.message });
     }
@@ -51,16 +54,19 @@ const loginAction = async (req, res) => {
     //validation
     const { error } = loginValidation(req.body);
     if (error) {
-      return res.send(error.details[0].message);
+      return res.send({
+        err: error.details[0],
+        message: error.details[0].message,
+      });
     }
 
     //if user exists
     const existUser = await User.findOne({ email: req.body.email });
-    if (!existUser) return res.send('Email is not found');
+    if (!existUser) return res.send({ message: 'Email is not found' });
 
-    //if user has accepted confirmation code
+    //if user hasn't accepted confirmation code
     if (existUser.status != 'Active') {
-      return res.status(401).send({
+      return res.send({
         message: 'Pending Account. Please Verify Your Email!',
       });
     }
@@ -69,25 +75,30 @@ const loginAction = async (req, res) => {
       req.body.password,
       existUser.password
     );
-    if (!validPassword) return res.send('Password is wrong');
+    if (!validPassword) return res.send({ message: 'Password is wrong' });
 
     //give token
-    const token = jwt.sign({ _id: existUser._id }, process.env.TOKEN_KEY);
+    const token = jwt.sign(
+      { _id: existUser._id, role: existUser.role },
+      process.env.TOKEN_KEY
+    );
     res
       .header('token', token)
-      .send({ token: token, id: existUser._id, name: existUser.firstName });
+      .send({ message: 'success', token: token, id: existUser._id });
   } catch (err) {
-    res.send(err);
+    res.send({ err, message: err.message });
   }
 };
 
 const verifyUser = async (req, res, next) => {
   try {
+    //find user with the confirmation code
     const existUser = await User.findOne({
       confirmationCode: req.params.confirmationCode,
     });
     if (!existUser) return res.send('User not found');
 
+    //update status to active
     await User.updateOne(
       { confirmationCode: existUser.confirmationCode },
       {
@@ -97,10 +108,12 @@ const verifyUser = async (req, res, next) => {
       },
       { $currentDate: { lastUpdated: true } }
     );
+
+    //show the new result
     const check = await User.findOne({
       confirmationCode: req.params.confirmationCode,
     });
-    res.json(check);
+    res.json({ message: 'success', user: check });
   } catch (err) {
     res.send(err);
   }
