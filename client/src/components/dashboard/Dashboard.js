@@ -71,7 +71,7 @@ const Dashboard = ({ info, ...rest }) => {
           as="button"
         >
           <WrapItem>
-            {userInfo === null ? (
+            {!userInfo ? (
               <SkeletonCircle />
             ) : (
               <Avatar
@@ -83,7 +83,7 @@ const Dashboard = ({ info, ...rest }) => {
           </WrapItem>
           <WrapItem mx="10">
             <Container maxW="200px">
-              {userInfo === null ? (
+              {!userInfo === null ? (
                 <Skeleton />
               ) : (
                 <Text fontSize="md">{userInfo.email}</Text>

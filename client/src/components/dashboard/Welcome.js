@@ -27,6 +27,7 @@ import {
   // Select,
   // Text,
   // StepButtons,
+  Skeleton,
   // useColorModeValue,
   // Button,
   // useColorMode,
@@ -59,7 +60,12 @@ const Welcome = ({ info }) => {
   // let { path } = useRouteMatch();
   return (
     <Stack spacing="20px">
-      <Heading m="30px">Welcome, {info.firstName}</Heading>
+      {!info ? (
+        <Skeleton />
+      ) : (
+        <Heading m="30px">Welcome, {info.firstName}</Heading>
+      )}
+
       <Stack
         direction={{ base: 'column', md: 'row' }}
         spacing={{ base: '30%', md: '5%' }}
