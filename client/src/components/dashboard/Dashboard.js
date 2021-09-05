@@ -7,6 +7,8 @@ import {
   Text,
   WrapItem,
   Container,
+  Skeleton,
+  SkeletonCircle,
   Button,
   Stack,
   Spinner,
@@ -69,11 +71,23 @@ const Dashboard = ({ info, ...rest }) => {
           as="button"
         >
           <WrapItem>
-            <Avatar size="md" name={userInfo.firstName} src={userInfo.image} />
+            {userInfo === null ? (
+              <SkeletonCircle />
+            ) : (
+              <Avatar
+                size="md"
+                name={userInfo.firstName}
+                src={userInfo.image}
+              />
+            )}
           </WrapItem>
           <WrapItem mx="10">
             <Container maxW="200px">
-              <Text fontSize="md">{userInfo.email}</Text>
+              {userInfo === null ? (
+                <Skeleton />
+              ) : (
+                <Text fontSize="md">{userInfo.email}</Text>
+              )}
             </Container>
           </WrapItem>
         </HStack>
