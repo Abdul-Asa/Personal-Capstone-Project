@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -27,13 +27,25 @@ import {
 import { CgWorkAlt } from 'react-icons/cg';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import { logOutAction } from '../../utils/Actions';
+import { logOutAction, getUserInfo } from '../../utils/Actions';
 
 const Dashboard = ({ info, ...rest }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   let { path } = useRouteMatch();
   const history = useHistory();
+  const [userInfo, setUserinfo] = useState({});
+  // const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    console.log('Fetching...');
+    const user = getUserInfo();
+    user
+      .then((data) => {
+        setUserinfo(data);
+        // setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  });
   return (
     <Box
       // transition="3s ease"
@@ -57,11 +69,11 @@ const Dashboard = ({ info, ...rest }) => {
           as="button"
         >
           <WrapItem>
-            <Avatar size="md" name={info.firstName} src={info.image} />
+            <Avatar size="md" name={userInfo.firstName} src={userInfo.image} />
           </WrapItem>
           <WrapItem mx="10">
             <Container maxW="200px">
-              <Text fontSize="md">{info.email}</Text>
+              <Text fontSize="md">{userInfo.email}</Text>
             </Container>
           </WrapItem>
         </HStack>
