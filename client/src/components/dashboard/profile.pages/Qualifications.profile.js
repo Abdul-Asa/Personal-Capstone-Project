@@ -55,10 +55,10 @@ const QualificationsProfile = ({ profileData, handleInput }) => {
         <FormLabel>Upload proof of document</FormLabel>
         <Input type="file" border="none" multiple />
       </FormControl>
-      <FormControl>
+      {/* <FormControl>
         <FormLabel>Upload your CV or other credentials</FormLabel>
         <Input type="file" border="none" multiple />
-      </FormControl>
+      </FormControl> */}
     </Stack>
   );
 };

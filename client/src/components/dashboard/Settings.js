@@ -9,6 +9,8 @@ import {
   Button,
   useColorMode,
   IconButton,
+  Collapse,
+  useToast,
   Input,
   WrapItem,
   AlertDialog,
@@ -19,6 +21,9 @@ import {
   AlertDialogContent,
 } from '@chakra-ui/react';
 import { FaSun, FaMoon, FaCaretDown, FaCaretUp, FaTrash } from 'react-icons/fa';
+import { changePassword, deleteAccount } from '../../utils/Actions';
+import { removeUser } from '../../utils/Common';
+import { useHistory } from 'react-router-dom';
 
 const Settings = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -26,6 +31,9 @@ const Settings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef();
+  const history = useHistory();
+  const toast = useToast();
+  const [buttonLoad, setButtonLoad] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
     oldPassword: '',
     newPassword: '',
@@ -41,8 +49,27 @@ const Settings = () => {
     });
   };
 
-  const changePassword = () => {
-    console.log(passwordForm);
+  const handleSubmit = () => {
+    setButtonLoad(true);
+    changePassword(passwordForm).then((response) => {
+      let status = 'error';
+      let message = response.message;
+      let title = 'Error';
+      if (response.message === 'success') {
+        status = 'success';
+        title = 'Success';
+        message = 'Password successfully changed';
+      }
+      toast({
+        title: title,
+        position: 'top',
+        description: message,
+        status: status,
+        duration: 5000,
+        isClosable: true,
+      });
+      setButtonLoad(false);
+    });
   };
 
   return (
@@ -93,12 +120,10 @@ const Settings = () => {
               <IconButton
                 icon={openAccordion ? <FaCaretUp /> : <FaCaretDown />}
                 size="sm"
-                // transition="1s ease"
-                // alignSelf="flex-end"
                 onClick={toggleAccordion}
               />
             </Flex>
-            {openAccordion && (
+            <Collapse in={openAccordion} animateOpacity>
               <Stack spacing="10px" marginTop="5%">
                 <Input
                   placeholder="Old Password"
@@ -114,13 +139,22 @@ const Settings = () => {
                   onChange={handleInput}
                   name="newPassword"
                 />
-                <Button variant="outline" onClick={changePassword}>
+                <Button
+                  variant="outline"
+                  isLoading={buttonLoad}
+                  onClick={() => {
+                    // setButtonLoad(true);
+                    // setTimeout(() => {
+                    handleSubmit();
+
+                    // }, 1000);
+                  }}
+                >
                   Change
                 </Button>
               </Stack>
-            )}
+            </Collapse>
           </Box>
-          {/* <AccordionPanel>Hello Here</AccordionPanel> */}
         </Flex>
         <Flex
           width="80%"
@@ -162,7 +196,17 @@ const Settings = () => {
                   <Button ref={cancelRef} onClick={onClose}>
                     Cancel
                   </Button>
-                  <Button colorScheme="red" onClick={onClose} ml={3}>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => {
+                      deleteAccount().then((response) => {
+                        console.log(response);
+                        removeUser();
+                        history.push('/');
+                      });
+                    }}
+                    ml={3}
+                  >
                     Delete
                   </Button>
                 </AlertDialogFooter>

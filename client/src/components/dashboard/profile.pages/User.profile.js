@@ -118,9 +118,9 @@ const UserProfile = ({ profileData, handleInput }) => {
         <Select
           placeholder="Select State"
           borderColor={useColorModeValue('gray.300', 'white')}
-          name="baseState"
           defaultValue={profileData.baseState}
           onChange={handleInput}
+          name="baseState"
         >
           <option value="Lagos">Lagos</option>
           <option value="Abuja">Abuja</option>

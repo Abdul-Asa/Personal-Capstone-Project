@@ -22,6 +22,7 @@ const Signup = () => {
     email: '',
     password: '',
     hasAgreed: true,
+    over18: true,
   });
 
   const handleInput = (e) => {

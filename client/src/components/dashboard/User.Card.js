@@ -5,6 +5,7 @@ import {
   VStack,
   Avatar,
   Text,
+  Divider,
   Flex,
 } from '@chakra-ui/react';
 import React from 'react';
@@ -12,7 +13,7 @@ import React from 'react';
 import { MdEmail, MdLocationOn, MdPhoneInTalk } from 'react-icons/md';
 import { BsFillBriefcaseFill } from 'react-icons/bs';
 
-const UserCard = ({ info }) => {
+const UserCard = ({ info, ...rest }) => {
   let jobs = '';
   if (info.myProfession3) {
     jobs =
@@ -47,14 +48,17 @@ const UserCard = ({ info }) => {
   if (!info.baseState) {
     email = 'N/A';
   }
-
+  let profile = info.myProfile;
+  if (!info.myProfile) {
+    profile = 'Edit your profile description';
+  }
   return (
-    <Box shadow="lg" rounded="lg" borderWidth="0.5px">
+    <Box shadow="lg" rounded="lg" borderWidth="0.5px" {...rest}>
       <Stack my="5%">
         <Flex ml="10%" alignItems="center">
           <Avatar
             boxSize={{ base: '70px', md: '140px' }}
-            src="https://res.cloudinary.com/padrone/image/upload/v1630717338/sample.jpg"
+            src={info.image}
             borderWidth="1px"
             borderColor="gray.300"
           />
@@ -72,9 +76,19 @@ const UserCard = ({ info }) => {
             </Box>
           </VStack>
         </Flex>
-        <Box fontSize="md" width="100%" px="10%" pt="20px" minHeight="150px">
-          {info.myProfile}
+        <Divider width="90%" alignSelf="center" />
+
+        <Box
+          fontSize="md"
+          width="100%"
+          px="10%"
+          pt="20px"
+          minHeight="150px"
+          borderStyle="dotted"
+        >
+          {profile}
         </Box>
+        <Divider width="90%" alignSelf="center" />
         <Flex
           direction={{ base: 'column', md: 'row' }}
           justify="space-around"
@@ -106,7 +120,7 @@ const UserCard = ({ info }) => {
             </Text>
           </Stack>
         </Flex>
-        <Box px="10%" pt="20px">
+        {/* <Box px="10%" pt="20px">
           <Heading size="sm">Other credentials</Heading>
           <Flex justify="space-between" px="10%" pt="20px">
             <Stack alignItems="center">
@@ -119,7 +133,7 @@ const UserCard = ({ info }) => {
               <Text>CV</Text>
             </Stack>
           </Flex>
-        </Box>
+        </Box> */}
       </Stack>
     </Box>
   );

@@ -201,6 +201,7 @@ const Profile = () => {
               <Button onClick={nextPage}>Next</Button>
             )}
           </Stack>
+
           {showAlert && (
             <Alert
               status={error.message === 'success' ? 'success' : 'error'}

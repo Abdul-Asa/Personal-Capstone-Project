@@ -76,6 +76,9 @@ const userSchema = new mongoose.Schema(
     highestDegree: {
       type: String,
     },
+    image: {
+      type: String,
+    },
     // token: {
     //   type: String,
     // },

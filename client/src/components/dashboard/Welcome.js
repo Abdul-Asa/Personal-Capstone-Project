@@ -89,7 +89,8 @@ const Welcome = ({ info }) => {
               </Button>
             </Flex>
           </Flex>
-          <UserCard info={info} />
+
+          <UserCard info={info} marginBottom="30px" />
         </Box>
       </Stack>
       {/* <Stack

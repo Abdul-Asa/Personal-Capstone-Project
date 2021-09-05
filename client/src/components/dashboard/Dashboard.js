@@ -28,7 +28,6 @@ import { CgWorkAlt } from 'react-icons/cg';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { logOutAction } from '../../utils/Actions';
-import floppa from './images/Floppa.jpeg';
 
 const Dashboard = ({ info, ...rest }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -58,7 +57,7 @@ const Dashboard = ({ info, ...rest }) => {
           as="button"
         >
           <WrapItem>
-            <Avatar size="md" name={info.firstName} src={floppa} />
+            <Avatar size="md" name={info.firstName} src={info.image} />
           </WrapItem>
           <WrapItem mx="10">
             <Container maxW="200px">

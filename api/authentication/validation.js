@@ -53,8 +53,26 @@ const updateUserValidation = (data) => {
   return validationSchema.validate(data);
 };
 
+const changePasswordValidation = (data) => {
+  const validationSchema = Joi.object({
+    oldPassword: Joi.string()
+      .required()
+      .min(8)
+      .max(1024)
+      .pattern(new RegExp('^[a-zA-Z0-9]{3,1024}$')),
+    newPassword: Joi.string()
+      .required()
+      .min(8)
+      .max(1024)
+      .pattern(new RegExp('^[a-zA-Z0-9]{3,1024}$')),
+  });
+
+  return validationSchema.validate(data);
+};
+
 module.exports = {
   signUpValidation,
   loginValidation,
   updateUserValidation,
+  changePasswordValidation,
 };
