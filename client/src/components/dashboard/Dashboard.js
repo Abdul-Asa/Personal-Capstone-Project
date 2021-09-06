@@ -7,6 +7,7 @@ import {
   Text,
   WrapItem,
   Container,
+  // Skeleton,
   Button,
   Stack,
   Spinner,
@@ -45,7 +46,7 @@ const Dashboard = ({ info, ...rest }) => {
         // setLoading(false);
       })
       .catch((err) => console.log(err));
-  });
+  }, [isOpen]);
   return (
     <Box
       // transition="3s ease"

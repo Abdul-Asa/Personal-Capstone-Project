@@ -28,6 +28,7 @@ import Dashboard from './Dashboard';
 import Contact from './Contact';
 import Settings from './Settings';
 import Profile from './Profile';
+import Post from './Post';
 
 const Home = () => {
   // const { colorMode, toggleColorMode } = useColorMode();
@@ -140,7 +141,7 @@ const Home = () => {
                 <Contact />
               </Route>
               <Route path={`${path}/post-job`}>
-                <Contact />
+                <Post />
               </Route>
               <Route path={`${path}/apply-job`}>
                 <Contact />
