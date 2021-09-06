@@ -72,6 +72,7 @@ const Profile = () => {
     delete userInfo.email;
     delete userInfo.hasAgreed;
     delete userInfo.password;
+    delete userInfo.image;
     delete userInfo.confirmationCode;
     delete userInfo.createdAt;
     delete userInfo.updatedAt;

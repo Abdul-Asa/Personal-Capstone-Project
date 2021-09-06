@@ -3,10 +3,11 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const multer = require('multer');
+// const multer = require('multer');
 const databaseConnection = require('./api/database/database');
 const authRoute = require('./api/routes/auth');
-const privateRoute = require('./api/routes/user');
+const userRoute = require('./api/routes/user');
+const jobRoute = require('./api/routes/job');
 const port = process.env.PORT || 3000;
 dotenv.config();
 //Seperate middlewares
@@ -26,7 +27,8 @@ app.use(cors());
 
 //ROUTES
 app.use('/auth', authRoute);
-app.use('/user', privateRoute);
+app.use('/user', userRoute);
+app.use('/job', jobRoute);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

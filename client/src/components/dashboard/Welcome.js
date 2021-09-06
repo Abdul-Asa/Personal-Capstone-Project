@@ -48,7 +48,7 @@ import {
   // Textarea,
 } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
-import UserCard from './User.Card';
+import UserCard from './comps/User.Card';
 // import { MdWork } from 'react-icons/md';
 // import { IoPaperPlane } from 'react-icons/io5';
 // import floppete from './images/Floppete.jpeg';

@@ -7,8 +7,12 @@ import {
   Text,
   WrapItem,
   Container,
+<<<<<<< HEAD
   Skeleton,
   SkeletonCircle,
+=======
+  // Skeleton,
+>>>>>>> 2ad6851 (Started job api)
   Button,
   Stack,
   Spinner,
@@ -47,7 +51,7 @@ const Dashboard = ({ info, ...rest }) => {
         // setLoading(false);
       })
       .catch((err) => console.log(err));
-  });
+  }, [isOpen]);
   return (
     <Box
       // transition="3s ease"

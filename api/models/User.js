@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-//Add the profile stuffs
-//See how you can store files/images
 
 const userSchema = new mongoose.Schema(
   {
