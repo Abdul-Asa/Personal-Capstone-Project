@@ -8,11 +8,15 @@ import {
   WrapItem,
   Container,
 <<<<<<< HEAD
+<<<<<<< HEAD
   Skeleton,
   SkeletonCircle,
 =======
   // Skeleton,
 >>>>>>> 2ad6851 (Started job api)
+=======
+  // Skeleton,
+>>>>>>> c703c1febbdffb5c7c866065ed5518bfef17dc25
   Button,
   Stack,
   Spinner,
