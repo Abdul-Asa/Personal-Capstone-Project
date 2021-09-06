@@ -4,12 +4,26 @@ const router = express.Router();
 
 const {
   userAuthentication,
-  adminAuthentication,
+  // adminAuthentication,
 } = require('../authentication/authentication');
-const { createJob, getAllJobs } = require('../queries/jobQueries');
+const {
+  createJob,
+  getAllJobs,
+  getJobsPostedBySingleUser,
+  applyToJob,
+  unApplyToJob,
+  getJobsAppliedToBySingleUser,
+  getJobApplicants,
+} = require('../queries/jobQueries');
 
-router.post('/:id', userAuthentication, createJob);
-router.get('/', adminAuthentication, getAllJobs);
+router.post('/post/:id', userAuthentication, createJob);
+router.get('/', getAllJobs);
+router.get('/posted/:id', userAuthentication, getJobsPostedBySingleUser);
+router.get('/applied/:id', userAuthentication, getJobsAppliedToBySingleUser);
+router.get('/applicants/:id', userAuthentication, getJobApplicants);
+router.patch('/apply/:id', userAuthentication, applyToJob);
+router.patch('/unapply/:id', userAuthentication, unApplyToJob);
+
 // router.delete('/:id', userAuthentication, deleteSingleUser);
 // router.patch('/:id', userAuthentication, updateSingleUser);
 // router.patch(

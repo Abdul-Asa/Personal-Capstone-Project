@@ -7,11 +7,24 @@ const createJob = async (req, res) => {
     const existUser = await User.findOne({ _id: user_id });
     if (!existUser) return res.send({ message: "User with id doesn't exist" });
 
-    const job = new Job({ ...req.body, postedBy: user_id });
-    const createdJob = await job.save();
-    res.json({ message: 'success', user: existUser, job: createdJob });
+    const maxPosted = await Job.find({ postedBy: user_id });
+    if (maxPosted.length >= 3) {
+      res.send({ message: ' user has posted the maximum number of jobs' });
+    } else {
+      const job = new Job({
+        ...req.body,
+        postedBy: user_id,
+        nameOfEmployer: existUser.firstName + ' ' + existUser.lastName,
+      });
+      const createdJob = await job.save();
+      res.json({
+        message: 'success',
+        job: createdJob,
+        jobsPosted: maxPosted.length,
+      });
+    }
   } catch (err) {
-    return res.json({ message: err.message, error: err });
+    return res.send({ message: err.message, error: err });
   }
 };
 
@@ -24,17 +37,114 @@ const getAllJobs = async (req, res) => {
   }
 };
 
-// const deleteSingleUser = async (req, res) => {
-//   try {
-//     const user_id = req.params.id;
-//     const existUser = await User.findOne({ _id: user_id });
-//     if (!existUser) return res.send({ message: "User with id doesn't exist" });
-//     const deletedUser = await User.deleteOne({ _id: user_id });
-//     res.json({ message: 'success', user: deletedUser });
-//   } catch (err) {
-//     return res.json({ message: err.message, error: err });
-//   }
-// };
+const getJobsPostedBySingleUser = async (req, res) => {
+  try {
+    const user_id = req.params.id;
+    const existUser = await User.findOne({ _id: user_id });
+    if (!existUser) return res.send({ message: "User with id doesn't exist" });
+
+    const postedJobs = await Job.find({ postedBy: user_id });
+    res.json({ message: 'success', jobs: postedJobs });
+  } catch (err) {
+    return res.json({ message: err.message, error: err });
+  }
+};
+
+const applyToJob = async (req, res) => {
+  try {
+    const applicantId = req.params.id;
+    const existUser = await User.findOne({ _id: applicantId });
+    if (!existUser) return res.send({ message: "User with id doesn't exist" });
+    const jobId = req.body.jobId;
+
+    const application = await Job.findOne({ _id: jobId });
+    if (!application) return res.send({ message: "Job doesn't doesn't exist" });
+
+    if (applicantId === application.postedBy) {
+      return res.send({ message: "You can't apply  to a job posted by you" });
+    } else {
+      if (application.applicants.includes(applicantId))
+        return res.send({ message: 'You have already applied to this job' });
+      else {
+        const applied = await Job.updateOne(
+          { _id: jobId },
+          { $push: { applicants: applicantId } },
+          { $currentDate: { lastUpdated: true } }
+        );
+
+        res.json({ message: 'success', job: applied });
+      }
+    }
+  } catch (err) {
+    return res.json({ message: err.message, error: err });
+  }
+};
+
+const unApplyToJob = async (req, res) => {
+  try {
+    const applicantId = req.params.id;
+    const existUser = await User.findOne({ _id: applicantId });
+    if (!existUser) return res.send({ message: "User with id doesn't exist" });
+    const jobId = req.body.jobId;
+
+    const application = await Job.findOne({ _id: jobId });
+    if (!application) return res.send({ message: "Job doesn't doesn't exist" });
+
+    if (applicantId === application.postedBy) {
+      return res.send({
+        message: "You can't unapply from a job posted by you",
+      });
+    } else {
+      if (!application.applicants.includes(applicantId))
+        return res.send({ message: 'You have not applied to this job' });
+      else {
+        const applied = await Job.updateOne(
+          { _id: jobId },
+          { $pull: { applicants: applicantId } },
+          { $currentDate: { lastUpdated: true } }
+        );
+
+        res.json({ message: 'success', job: applied });
+      }
+    }
+  } catch (err) {
+    return res.json({ message: err.message, error: err });
+  }
+};
+
+const getJobsAppliedToBySingleUser = async (req, res) => {
+  try {
+    const user_id = req.params.id;
+    const existUser = await User.findOne({ _id: user_id });
+    if (!existUser) return res.send({ message: "User with id doesn't exist" });
+
+    const appliedJobs = await Job.find({ applicants: user_id });
+    res.json({ message: 'success', jobs: appliedJobs });
+  } catch (err) {
+    return res.json({ message: err.message, error: err });
+  }
+};
+
+const getJobApplicants = async (req, res) => {
+  try {
+    const user_id = req.params.id;
+    const existUser = await User.findOne({ _id: user_id });
+    if (!existUser) return res.send({ message: "User with id doesn't exist" });
+
+    const jobId = req.body.jobId;
+    const application = await Job.findOne({ _id: jobId });
+    if (application.postedBy !== user_id) {
+      return res.send({ message: 'You did not create this job' });
+    } else {
+      const applicantUser = await User.find({
+        _id: { $in: application.applicants },
+      });
+      res.json({ message: 'success', applicants: applicantUser });
+    }
+  } catch (err) {
+    return res.json({ message: err.message, error: err });
+  }
+};
 
 // const updateSingleUser = async (req, res) => {
 //   try {
@@ -126,4 +236,9 @@ const getAllJobs = async (req, res) => {
 module.exports = {
   createJob,
   getAllJobs,
+  getJobsPostedBySingleUser,
+  applyToJob,
+  unApplyToJob,
+  getJobsAppliedToBySingleUser,
+  getJobApplicants,
 };
