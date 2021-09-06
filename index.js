@@ -25,6 +25,9 @@ app.use(express.json());
 app.use(cors());
 
 //ROUTES
+app.use('/auth', authRoute);
+app.use('/user', privateRoute);
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*/', (req, res) => {
@@ -37,21 +40,18 @@ if (process.env.NODE_ENV === 'production') {
   });
   app.post('/', (req, res) => res.send(req.body));
 }
-//Storage
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + '-' + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-app.use('/auth', authRoute);
-app.use('/user', privateRoute);
+// //Storage
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(
+//       null,
+//       file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
 
 app.listen(port, () => {
   console.log('Running on localhost:' + port);
