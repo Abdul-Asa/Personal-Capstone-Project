@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const parser = require('../database/cloudinary.config');
+const { jobParser } = require('../database/cloudinary.config');
 
 const {
   userAuthentication,
@@ -14,15 +14,22 @@ const {
   unApplyToJob,
   getJobsAppliedToBySingleUser,
   getJobApplicants,
+  deleteJob,
 } = require('../queries/jobQueries');
 
-router.post('/post/:id', userAuthentication, createJob);
+router.post(
+  '/post/:id',
+  jobParser.single('image'),
+  userAuthentication,
+  createJob
+);
 router.get('/', getAllJobs);
 router.get('/posted/:id', userAuthentication, getJobsPostedBySingleUser);
 router.get('/applied/:id', userAuthentication, getJobsAppliedToBySingleUser);
 router.get('/applicants/:id', userAuthentication, getJobApplicants);
 router.patch('/apply/:id', userAuthentication, applyToJob);
 router.patch('/unapply/:id', userAuthentication, unApplyToJob);
+router.delete('/delete/:id', userAuthentication, deleteJob);
 
 // router.delete('/:id', userAuthentication, deleteSingleUser);
 // router.patch('/:id', userAuthentication, updateSingleUser);

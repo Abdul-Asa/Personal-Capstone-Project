@@ -1,5 +1,6 @@
 const Job = require('../models/Job');
 const User = require('../models/User');
+const { createJobValidation } = require('../authentication/validation');
 
 const createJob = async (req, res) => {
   try {
@@ -9,12 +10,25 @@ const createJob = async (req, res) => {
 
     const maxPosted = await Job.find({ postedBy: user_id });
     if (maxPosted.length >= 3) {
-      res.send({ message: ' user has posted the maximum number of jobs' });
+      res.send({ message: ' user has posted the maximum number of jobs (3)' });
     } else {
+      const { error } = createJobValidation(req.body);
+      if (error) {
+        return res.send({
+          err: error.details[0],
+          message: error.details[0].message,
+        });
+      }
+      let image = '';
+      if (req.file) {
+        image = req.file.path;
+      }
+
       const job = new Job({
         ...req.body,
         postedBy: user_id,
         nameOfEmployer: existUser.firstName + ' ' + existUser.lastName,
+        image: image,
       });
       const createdJob = await job.save();
       res.json({
@@ -146,6 +160,28 @@ const getJobApplicants = async (req, res) => {
   }
 };
 
+const deleteJob = async (req, res) => {
+  try {
+    const user_id = req.params.id;
+    const existUser = await User.findOne({ _id: user_id });
+    if (!existUser) return res.send({ message: "User with id doesn't exist" });
+
+    const jobId = req.body.jobId;
+
+    const toBeDeleted = await Job.findOne({ _id: jobId });
+    if (!toBeDeleted) return res.send({ message: "Job with id doesn't exist" });
+
+    if (toBeDeleted.postedBy !== user_id) {
+      return res.send({ message: 'You did not create this job' });
+    } else {
+      const deleted = await Job.deleteOne({ _id: jobId });
+      res.json({ message: 'success', deletedJob: deleted });
+    }
+  } catch (err) {
+    return res.json({ message: err.message, error: err });
+  }
+};
+
 // const updateSingleUser = async (req, res) => {
 //   try {
 //     const user_id = req.params.id;
@@ -241,4 +277,5 @@ module.exports = {
   unApplyToJob,
   getJobsAppliedToBySingleUser,
   getJobApplicants,
+  deleteJob,
 };

@@ -13,7 +13,7 @@ cloudinary.config({
   api_secret: CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+const picsStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'profile pics',
@@ -21,6 +21,17 @@ const storage = new CloudinaryStorage({
     public_id: (req, file) => file.filename,
   },
 });
-const parser = multer({ storage: storage });
 
-module.exports = parser;
+const jobsStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'job description pics',
+    format: async () => 'png',
+    public_id: (req, file) => file.filename,
+  },
+});
+
+const profileParser = multer({ storage: picsStorage });
+const jobParser = multer({ storage: jobsStorage });
+
+module.exports = { profileParser, jobParser };

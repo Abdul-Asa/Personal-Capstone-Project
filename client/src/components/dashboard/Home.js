@@ -60,7 +60,7 @@ const Home = () => {
       as="section"
     >
       {isDesktop ? (
-        <Dashboard info={userInfo} />
+        <Dashboard />
       ) : (
         <Drawer
           isOpen={isOpen}
@@ -71,7 +71,7 @@ const Home = () => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton zIndex="overlay" />
-            <Dashboard w="full" info={userInfo} />
+            <Dashboard w="full" />
           </DrawerContent>
         </Drawer>
       )}
@@ -135,7 +135,7 @@ const Home = () => {
                 <Profile />
               </Route>
               <Route path={`${path}/settings`}>
-                <Settings info={userInfo} />
+                <Settings />
               </Route>
               <Route path={`${path}/contact`}>
                 <Contact />

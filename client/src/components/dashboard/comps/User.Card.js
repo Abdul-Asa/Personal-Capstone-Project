@@ -62,7 +62,13 @@ const UserCard = ({ info, ...rest }) => {
   }
 
   return (
-    <Box shadow="lg" rounded="lg" borderWidth="0.5px" {...rest}>
+    <Box
+      shadow="lg"
+      rounded="lg"
+      borderWidth="0.5px"
+      {...rest}
+      marginBottom="40px"
+    >
       <Stack my="5%">
         <Flex ml="10%" alignItems="center">
           {info ? (

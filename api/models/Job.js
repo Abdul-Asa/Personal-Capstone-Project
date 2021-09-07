@@ -21,11 +21,9 @@ const jobSchema = new mongoose.Schema(
       required: true,
       min: 10,
     },
-    preferredProfessional: [
-      {
-        type: String,
-      },
-    ],
+    preferredProfessional: {
+      type: String,
+    },
     priceRange: {
       type: String,
     },
@@ -35,6 +33,9 @@ const jobSchema = new mongoose.Schema(
       },
     ],
     chosenApplicant: {
+      type: String,
+    },
+    image: {
       type: String,
     },
   },

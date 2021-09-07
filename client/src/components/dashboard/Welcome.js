@@ -61,7 +61,7 @@ const Welcome = ({ info }) => {
   return (
     <Stack spacing="20px">
       {!info ? (
-        <Skeleton />
+        <Skeleton height="20px" />
       ) : (
         <Heading m="30px">Welcome, {info.firstName}</Heading>
       )}
@@ -95,35 +95,10 @@ const Welcome = ({ info }) => {
               </Button>
             </Flex>
           </Flex>
-
-          <UserCard info={info} marginBottom="30px" />
+          <UserCard info={info} />
+          <Box>-</Box>{' '}
         </Box>
       </Stack>
-      {/* <Stack
-        direction={{ base: 'column', md: 'row' }}
-        spacing={{ base: '30%', md: '5%' }}
-        height="430px"
-        padding="2%"
-      >
-        <Box
-          // borderWidth="1px"
-          // borderStyle="solid"
-          // rounded="md"
-          w="full"
-          h="full"
-        >
-          <Stack
-            alignItems="center"
-            spacing="15px"
-            direction="row"
-            m={{ base: '20px', md: '2' }}
-          >
-            <FaUser />
-            <Heading size="md">Profile</Heading>
-          </Stack>
-          <UserCard />
-        </Box>
-      </Stack> */}
     </Stack>
   );
 };
