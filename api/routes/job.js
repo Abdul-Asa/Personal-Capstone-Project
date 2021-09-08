@@ -15,14 +15,11 @@ const {
   getJobsAppliedToBySingleUser,
   getJobApplicants,
   deleteJob,
+  addJobImage,
 } = require('../queries/jobQueries');
 
-router.post(
-  '/post/:id',
-  jobParser.single('image'),
-  userAuthentication,
-  createJob
-);
+router.post('/post/:id', userAuthentication, createJob);
+router.patch('/post/image/:id', jobParser.single('image'), addJobImage);
 router.get('/', getAllJobs);
 router.get('/posted/:id', userAuthentication, getJobsPostedBySingleUser);
 router.get('/applied/:id', userAuthentication, getJobsAppliedToBySingleUser);

@@ -123,7 +123,7 @@ export const deleteJob = async (data) => {
   }
 };
 
-export const postNewjob = async (data) => {
+export const postNewjob = async (data, image) => {
   const user = getUser();
   const config = {
     headers: {
@@ -132,9 +132,34 @@ export const postNewjob = async (data) => {
   };
   if (user) {
     return await axios
-      .post(`${BASEURL}/job/post/${user.id}`, data, config)
+      .post(`${BASEURL}/job/post/${user.id}`, data, config, image)
       .then((response) => {
         return response.data;
       });
   }
 };
+
+export const addJobImage = async (image, id) => {
+  return await axios
+    .patch(`${BASEURL}/job/post/image/${id}`, image)
+    .then((response) => {
+      return response.data;
+    });
+};
+
+// export const getJobApplicants = async (data) => {
+//   const user = getUser();
+//   const config = {
+//     headers: {
+//       token: user.token,
+//     },
+//     data: data,
+//   };
+//   if (user) {
+//     return await axios
+//       .get(`${BASEURL}/job/applicants/${user.id}`, config)
+//       .then((response) => {
+//         return response.data;
+//       });
+//   }
+// };

@@ -75,7 +75,6 @@ const createJobValidation = (data) => {
     jobDescription: Joi.string().required().min(10),
     preferredProfessional: Joi.string(),
     priceRange: Joi.string(),
-    image: Joi.string().allow(''),
   });
 
   return validationSchema.validate(data);

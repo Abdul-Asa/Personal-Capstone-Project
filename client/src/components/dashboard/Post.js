@@ -19,7 +19,7 @@ import {
   AlertTitle,
   CloseButton,
   AlertIcon,
-  // Select,
+  FormControl,
   Stack,
   useMediaQuery,
   Button,
@@ -28,6 +28,13 @@ import {
   Thead,
   Tbody,
   Tfoot,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   Tr,
   Th,
   Td,
@@ -42,7 +49,16 @@ import {
   Collapse,
 } from '@chakra-ui/react';
 import { FaFolderOpen, FaIdCard, FaPlus, FaTrash } from 'react-icons/fa';
-import { getJobsPosted, deleteJob, postNewjob } from '../../utils/Actions';
+import JobCard from './comps/Job.Card';
+import UserCard from './comps/User.Card';
+import {
+  getJobsPosted,
+  deleteJob,
+  postNewjob,
+  addJobImage,
+  getJobApplicants,
+} from '../../utils/Actions';
+import { response } from 'express';
 
 const Post = () => {
   const [openAccordion, setAccordion] = useState(false);
@@ -54,12 +70,20 @@ const Post = () => {
     preferredProfessional: '',
     priceRange: '',
   });
+  const [applicantList, setApplicantList] = useState([]);
+
   const [isDesktop] = useMediaQuery('(min-width: 50em)');
   const [isOpen, setIsOpen] = useState(false);
   const [buttonLoader, setButtonLoader] = useState(false);
   const [deletedId, setDeletedId] = useState('');
+  const [jobPic, setJobPic] = useState();
   const [error, setError] = useState({});
   const [showAlert, setAlert] = useState(false);
+  const [showJobCard, setCardShow] = useState(false);
+  const [showApplicants, setShowApplicants] = useState(false);
+
+  const [toBeShown, setToBeShown] = useState('');
+
   const cancelRef = React.useRef();
   const toast = useToast();
   const onClose = () => setIsOpen(false);
@@ -70,7 +94,9 @@ const Post = () => {
       return { ...inputDetails, [name]: value };
     });
   };
-
+  const handleFileChange = ({ target }) => {
+    setJobPic(target.files[0]);
+  };
   const submitJobAction = () => {
     setButtonLoader(true);
     const posted = postNewjob(jobForm);
@@ -81,14 +107,29 @@ const Post = () => {
       setButtonLoader(false);
       setLoading(true);
       setLoading(false);
-      if (response.message === 'success')
+      if (response.message === 'success') {
         setJobForm({
           title: '',
           jobDescription: '',
           preferredProfessional: '',
           priceRange: '',
         });
-      setAccordion(false);
+        if (jobPic) {
+          const imageData = new FormData();
+          imageData.append('image', jobPic);
+          const image = addJobImage(imageData, response.job._id);
+          image.then((res) => {
+            console.log(res);
+            setJobPic();
+            setLoading(true);
+            setLoading(false);
+          });
+        }
+        setTimeout(() => {
+          setAccordion(false);
+          setAlert(false);
+        }, 1500);
+      }
     });
   };
 
@@ -208,9 +249,32 @@ const Post = () => {
                 <option value="<10000">Less than 10k</option>
                 <option value="10000<p<50000">Between 10k and 50k</option>
                 <option value="50000<p<150000">Between 50k and 150k</option>
-                <option value="150000<">Greater than 150k</option>
+                <option value=">150000">Greater than 150k</option>
               </Select>
             </InputGroup>
+            <FormControl>
+              <Flex justify="start">
+                <FormLabel
+                  isTruncated
+                  width={{ base: '50%', md: 'fit-content' }}
+                >
+                  Job image description
+                </FormLabel>
+                <Input
+                  type="file"
+                  variant="outline"
+                  name="myPfp"
+                  accept="image/*"
+                  width={{ base: '50%', md: '30%' }}
+                  size="sm"
+                  fontWeight="medium"
+                  placeholder="Choose Image"
+                  _focus={{ shadow: 'none' }}
+                  onChange={handleFileChange}
+                />
+              </Flex>
+            </FormControl>
+
             <Button
               colorScheme="telegram"
               onClick={submitJobAction}
@@ -274,21 +338,31 @@ const Post = () => {
                         <Td px="10px" isNumeric>
                           {no + 1}.
                         </Td>
-                        <Td>{index.title}</Td>
+                        <Td isTruncated>{index.title}</Td>
                         <Td>{reformDate(index.createdAt)}</Td>
                         <Td>
                           <HStack justify="space-evenly" pl="20%">
                             {isDesktop ? (
                               <>
                                 <Button
+                                  id={index._id}
                                   colorScheme="telegram"
                                   variant="outline"
+                                  onClick={(e) => {
+                                    setApplicantList(true);
+                                    // viewAppAction(e.target.id);
+                                  }}
                                 >
                                   View applicants
                                 </Button>
                                 <Button
+                                  id={no}
                                   colorScheme="telegram"
                                   variant="outline"
+                                  onClick={(e) => {
+                                    setCardShow(true);
+                                    setToBeShown(jobsList[e.target.id]);
+                                  }}
                                 >
                                   View card
                                 </Button>
@@ -327,6 +401,33 @@ const Post = () => {
                                 />
                               </>
                             )}
+                            <Modal
+                              isOpen={showApplicants}
+                              onClose={() => setShowApplicants(false)}
+                            >
+                              <ModalOverlay />
+                              <ModalContent>
+                                <ModalHeader />
+                                <ModalCloseButton />
+                                <ModalBody>
+                                  <JobCard info={toBeShown} my="40px" />
+                                </ModalBody>
+                              </ModalContent>
+                            </Modal>
+
+                            <Modal
+                              isOpen={showJobCard}
+                              onClose={() => setCardShow(false)}
+                            >
+                              <ModalOverlay />
+                              <ModalContent>
+                                <ModalHeader />
+                                <ModalCloseButton />
+                                <ModalBody>
+                                  <JobCard info={toBeShown} my="40px" />
+                                </ModalBody>
+                              </ModalContent>
+                            </Modal>
                             <AlertDialog
                               isOpen={isOpen}
                               leastDestructiveRef={cancelRef}

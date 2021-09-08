@@ -19,16 +19,12 @@ const createJob = async (req, res) => {
           message: error.details[0].message,
         });
       }
-      let image = '';
-      if (req.file) {
-        image = req.file.path;
-      }
 
       const job = new Job({
         ...req.body,
         postedBy: user_id,
         nameOfEmployer: existUser.firstName + ' ' + existUser.lastName,
-        image: image,
+        image: '',
       });
       const createdJob = await job.save();
       res.json({
@@ -182,6 +178,25 @@ const deleteJob = async (req, res) => {
   }
 };
 
+const addJobImage = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const existJob = await Job.findOne({ _id: jobId });
+    if (!existJob) return res.send("User with id doesn't exist");
+
+    const image = req.file.path;
+
+    const addImage = await Job.updateOne(
+      { _id: jobId },
+      { $set: { image: image } },
+      { $currentDate: { lastUpdated: true } }
+    );
+    res.json({ message: 'success', job: addImage });
+  } catch (err) {
+    return res.json({ message: err.message, error: err });
+  }
+};
+
 // const updateSingleUser = async (req, res) => {
 //   try {
 //     const user_id = req.params.id;
@@ -278,4 +293,5 @@ module.exports = {
   getJobsAppliedToBySingleUser,
   getJobApplicants,
   deleteJob,
+  addJobImage,
 };
