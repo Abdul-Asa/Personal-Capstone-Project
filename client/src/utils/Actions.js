@@ -147,19 +147,18 @@ export const addJobImage = async (image, id) => {
     });
 };
 
-// export const getJobApplicants = async (data) => {
-//   const user = getUser();
-//   const config = {
-//     headers: {
-//       token: user.token,
-//     },
-//     data: data,
-//   };
-//   if (user) {
-//     return await axios
-//       .get(`${BASEURL}/job/applicants/${user.id}`, config)
-//       .then((response) => {
-//         return response.data;
-//       });
-//   }
-// };
+export const getJobApplicants = async (data) => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .patch(`${BASEURL}/job/applicants/${user.id}`, data, config)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};

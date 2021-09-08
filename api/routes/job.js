@@ -19,11 +19,11 @@ const {
 } = require('../queries/jobQueries');
 
 router.post('/post/:id', userAuthentication, createJob);
-router.patch('/post/image/:id', jobParser.single('image'), addJobImage);
 router.get('/', getAllJobs);
 router.get('/posted/:id', userAuthentication, getJobsPostedBySingleUser);
 router.get('/applied/:id', userAuthentication, getJobsAppliedToBySingleUser);
-router.get('/applicants/:id', userAuthentication, getJobApplicants);
+router.patch('/post/image/:id', jobParser.single('image'), addJobImage);
+router.patch('/applicants/:id', userAuthentication, getJobApplicants);
 router.patch('/apply/:id', userAuthentication, applyToJob);
 router.patch('/unapply/:id', userAuthentication, unApplyToJob);
 router.delete('/delete/:id', userAuthentication, deleteJob);

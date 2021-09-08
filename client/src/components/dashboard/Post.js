@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; //, { useState, useEffect }
 import {
   Heading,
-  VStack,
+  // VStack,
   HStack,
   Box,
   Flex,
@@ -27,12 +27,12 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
+  Spinner,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
+  // ModalFooter,
   ModalBody,
   ModalCloseButton,
   Tr,
@@ -40,8 +40,8 @@ import {
   Td,
   Center,
   useToast,
-  TableCaption,
-  WrapItem,
+  // TableCaption,
+  // WrapItem,
   Text,
   Input,
   InputGroup,
@@ -58,7 +58,6 @@ import {
   addJobImage,
   getJobApplicants,
 } from '../../utils/Actions';
-import { response } from 'express';
 
 const Post = () => {
   const [openAccordion, setAccordion] = useState(false);
@@ -71,7 +70,6 @@ const Post = () => {
     priceRange: '',
   });
   const [applicantList, setApplicantList] = useState([]);
-
   const [isDesktop] = useMediaQuery('(min-width: 50em)');
   const [isOpen, setIsOpen] = useState(false);
   const [buttonLoader, setButtonLoader] = useState(false);
@@ -81,9 +79,10 @@ const Post = () => {
   const [showAlert, setAlert] = useState(false);
   const [showJobCard, setCardShow] = useState(false);
   const [showApplicants, setShowApplicants] = useState(false);
-
   const [toBeShown, setToBeShown] = useState('');
-
+  const [modalLoader, setModalLoader] = useState(false);
+  // const [current, setCurrent] = useState({});
+  // let pages = 0;
   const cancelRef = React.useRef();
   const toast = useToast();
   const onClose = () => setIsOpen(false);
@@ -349,8 +348,16 @@ const Post = () => {
                                   colorScheme="telegram"
                                   variant="outline"
                                   onClick={(e) => {
-                                    setApplicantList(true);
-                                    // viewAppAction(e.target.id);
+                                    setShowApplicants(true);
+                                    setModalLoader(true);
+                                    console.log(e.target.id);
+                                    getJobApplicants({
+                                      jobId: e.target.id,
+                                    }).then((response) => {
+                                      setApplicantList(response.applicants);
+                                      // setCurrent(applicantList[0]);
+                                      setModalLoader(false);
+                                    });
                                   }}
                                 >
                                   View applicants
@@ -406,12 +413,39 @@ const Post = () => {
                               onClose={() => setShowApplicants(false)}
                             >
                               <ModalOverlay />
-                              <ModalContent>
+                              <ModalContent w="700px">
                                 <ModalHeader />
                                 <ModalCloseButton />
                                 <ModalBody>
-                                  <JobCard info={toBeShown} my="40px" />
+                                  {modalLoader ? (
+                                    <Center>
+                                      <Spinner />
+                                    </Center>
+                                  ) : (
+                                    <>
+                                      {applicantList.length === 0 ? (
+                                        <Box>
+                                          {' '}
+                                          <Center h="350px">
+                                            No applicants
+                                          </Center>
+                                        </Box>
+                                      ) : (
+                                        <>
+                                          {applicantList.map((index, no) => {
+                                            return (
+                                              <UserCard info={index} key={no} />
+                                            );
+                                          })}
+                                        </>
+                                      )}
+                                    </>
+                                  )}
                                 </ModalBody>
+                                {/* <ModalFooter justifyContent="center">
+                                  <Button mr={3}>Previous</Button>
+                                  <Button>Next</Button>
+                                </ModalFooter> */}
                               </ModalContent>
                             </Modal>
 

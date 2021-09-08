@@ -3,22 +3,23 @@ import {
   Heading,
   Stack,
   Box,
-  VStack,
-  Avatar,
+  Flex,
   Text,
-  Wrap,
-  Divider,
-  chakra,
   Image,
   useColorModeValue,
-  Link,
-  Flex,
-  Container,
-  Skeleton,
+  // VStack,
+  // Avatar,
+  // Wrap,
+  // Divider,
+  // chakra,
+
+  // Link,
+  // Container,
+  // Skeleton,
 } from '@chakra-ui/react';
 import { BsFillBriefcaseFill, BsFillPersonFill } from 'react-icons/bs';
 import { BiTimeFive } from 'react-icons/bi';
-import { FaCoins } from 'react-icons/fa';
+import { FaMoneyBill } from 'react-icons/fa';
 const JobCard = ({ info, ...rest }) => {
   // const data = JSON.stringify(info);
   const reformDate = (date) => {
@@ -73,7 +74,7 @@ const JobCard = ({ info, ...rest }) => {
               <Text pl={2}>Date created: {reformDate(info.createdAt)}</Text>
             </Flex>
             <Flex alignItems="center">
-              <FaCoins />
+              <FaMoneyBill />
               <Text pl={2}>Price Range: {info.priceRange}</Text>
             </Flex>
           </Stack>

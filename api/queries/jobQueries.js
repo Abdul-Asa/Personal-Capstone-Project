@@ -143,6 +143,8 @@ const getJobApplicants = async (req, res) => {
 
     const jobId = req.body.jobId;
     const application = await Job.findOne({ _id: jobId });
+    if (!application) return res.send({ message: "Job doesn't doesn't exist" });
+
     if (application.postedBy !== user_id) {
       return res.send({ message: 'You did not create this job' });
     } else {

@@ -52,7 +52,7 @@ const UserCard = ({ info, ...rest }) => {
       baseState = 'N/A';
     }
     email = info.email;
-    if (!info.baseState) {
+    if (!info.email) {
       email = 'N/A';
     }
     profile = info.myProfile;
