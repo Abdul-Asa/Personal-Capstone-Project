@@ -114,7 +114,7 @@ const UserCard = ({ info, ...rest }) => {
         </Box>
         <Divider width="90%" alignSelf="center" />
         <Flex
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: 'column', sm: 'column', md: 'row' }}
           justify="space-around"
           px="10%"
           pt="20px"

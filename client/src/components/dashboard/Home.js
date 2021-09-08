@@ -29,6 +29,8 @@ import Contact from './Contact';
 import Settings from './Settings';
 import Profile from './Profile';
 import Post from './Post';
+import Search from './Search';
+import Apply from './Apply';
 
 const Home = () => {
   // const { colorMode, toggleColorMode } = useColorMode();
@@ -144,10 +146,10 @@ const Home = () => {
                 <Post />
               </Route>
               <Route path={`${path}/apply-job`}>
-                <Contact />
+                <Apply />
               </Route>
               <Route path={`${path}/search-job`}>
-                <Contact />
+                <Search />
               </Route>
             </Switch>
           </Box>

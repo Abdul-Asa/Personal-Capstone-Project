@@ -388,13 +388,31 @@ const Post = () => {
                               <>
                                 {' '}
                                 <IconButton
+                                  id={index._id}
                                   colorScheme="telegram"
                                   variant="outline"
+                                  onClick={(e) => {
+                                    setShowApplicants(true);
+                                    setModalLoader(true);
+                                    console.log(e.target.id);
+                                    getJobApplicants({
+                                      jobId: e.target.id,
+                                    }).then((response) => {
+                                      setApplicantList(response.applicants);
+                                      // setCurrent(applicantList[0]);
+                                      setModalLoader(false);
+                                    });
+                                  }}
                                   icon={<FaFolderOpen />}
                                 />
                                 <IconButton
+                                  id={no}
                                   colorScheme="telegram"
                                   variant="outline"
+                                  onClick={(e) => {
+                                    setCardShow(true);
+                                    setToBeShown(jobsList[e.target.id]);
+                                  }}
                                   icon={<FaIdCard />}
                                 />
                                 <IconButton
@@ -411,9 +429,11 @@ const Post = () => {
                             <Modal
                               isOpen={showApplicants}
                               onClose={() => setShowApplicants(false)}
+                              size="2xl"
+                              scrollBehavior="inside"
                             >
                               <ModalOverlay />
-                              <ModalContent w="700px">
+                              <ModalContent>
                                 <ModalHeader />
                                 <ModalCloseButton />
                                 <ModalBody>
@@ -434,7 +454,11 @@ const Post = () => {
                                         <>
                                           {applicantList.map((index, no) => {
                                             return (
-                                              <UserCard info={index} key={no} />
+                                              <UserCard
+                                                info={index}
+                                                key={no}
+                                                width="full"
+                                              />
                                             );
                                           })}
                                         </>
@@ -452,6 +476,8 @@ const Post = () => {
                             <Modal
                               isOpen={showJobCard}
                               onClose={() => setCardShow(false)}
+                              size="xl"
+                              scrollBehavior="inside"
                             >
                               <ModalOverlay />
                               <ModalContent>
