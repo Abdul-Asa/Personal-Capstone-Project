@@ -4,8 +4,10 @@ import LandingPage from '../components/landing page/LandingPage';
 import Signup from '../components/entry page/Signup';
 import Login from '../components/entry page/Login';
 import Home from '../components/dashboard/Home';
+import Confirmation from '../components/entry page/Confirmation';
 import PrivateRoute from './PrivateRoute';
-
+import ConfirmRoute from './confirmRoute';
+import WrongConfirmation from '../components/entry page/WrongConfirmation';
 const Routes = () => {
   return (
     <Switch>
@@ -21,6 +23,12 @@ const Routes = () => {
       <PrivateRoute path="/user/home">
         <Home />
       </PrivateRoute>
+      <ConfirmRoute
+        path="/auth/confirm/:confirmationCode"
+        failureChild={<WrongConfirmation />}
+      >
+        <Confirmation />
+      </ConfirmRoute>
     </Switch>
   );
 };
