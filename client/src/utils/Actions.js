@@ -7,6 +7,12 @@ export const logOutAction = () => {
   removeUser();
 };
 
+export const verifyUser = (url) => {
+  return axios.get(`${BASEURL}${url}`).then((response) => {
+    return response.data;
+  });
+};
+
 export const getUserInfo = async () => {
   const user = getUser();
   const config = {
