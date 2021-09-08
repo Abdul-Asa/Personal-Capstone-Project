@@ -69,10 +69,21 @@ const changePasswordValidation = (data) => {
 
   return validationSchema.validate(data);
 };
+const createJobValidation = (data) => {
+  const validationSchema = Joi.object({
+    title: Joi.string().required().min(3),
+    jobDescription: Joi.string().required().min(10),
+    preferredProfessional: Joi.string(),
+    priceRange: Joi.string(),
+  });
+
+  return validationSchema.validate(data);
+};
 
 module.exports = {
   signUpValidation,
   loginValidation,
   updateUserValidation,
   changePasswordValidation,
+  createJobValidation,
 };

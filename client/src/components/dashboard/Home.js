@@ -28,6 +28,9 @@ import Dashboard from './Dashboard';
 import Contact from './Contact';
 import Settings from './Settings';
 import Profile from './Profile';
+import Post from './Post';
+import Search from './Search';
+import Apply from './Apply';
 
 const Home = () => {
   // const { colorMode, toggleColorMode } = useColorMode();
@@ -59,7 +62,7 @@ const Home = () => {
       as="section"
     >
       {isDesktop ? (
-        <Dashboard info={userInfo} />
+        <Dashboard />
       ) : (
         <Drawer
           isOpen={isOpen}
@@ -70,7 +73,7 @@ const Home = () => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton zIndex="overlay" />
-            <Dashboard w="full" info={userInfo} />
+            <Dashboard w="full" />
           </DrawerContent>
         </Drawer>
       )}
@@ -134,19 +137,19 @@ const Home = () => {
                 <Profile />
               </Route>
               <Route path={`${path}/settings`}>
-                <Settings info={userInfo} />
+                <Settings />
               </Route>
               <Route path={`${path}/contact`}>
                 <Contact />
               </Route>
               <Route path={`${path}/post-job`}>
-                <Contact />
+                <Post />
               </Route>
               <Route path={`${path}/apply-job`}>
-                <Contact />
+                <Apply />
               </Route>
               <Route path={`${path}/search-job`}>
-                <Contact />
+                <Search />
               </Route>
             </Switch>
           </Box>

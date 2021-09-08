@@ -31,7 +31,7 @@ import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { logOutAction, getUserInfo } from '../../utils/Actions';
 
-const Dashboard = ({ info, ...rest }) => {
+const Dashboard = ({ ...rest }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   let { path } = useRouteMatch();
   const history = useHistory();
@@ -47,7 +47,7 @@ const Dashboard = ({ info, ...rest }) => {
         // setLoading(false);
       })
       .catch((err) => console.log(err));
-  });
+  }, [isOpen]);
   return (
     <Box
       // transition="3s ease"

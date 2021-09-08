@@ -17,7 +17,7 @@ function userAuthentication(req, res, next) {
 
 function adminAuthentication(req, res, next) {
   const token = req.header('token');
-  if (!token) return res.send('access denied');
+  if (!token) return res.send({ message: 'access denied' });
   try {
     const verified = jwt.verify(token, process.env.TOKEN_KEY);
     req.user = verified;
@@ -25,7 +25,9 @@ function adminAuthentication(req, res, next) {
     //   res.send('wrong user');
     // }
     if (req.user.role !== 'admin') {
-      res.send("You don't have the authority to access");
+      res.send({
+        message: "You don't have the authority to access this route",
+      });
     }
     // res.send(verified);
   } catch (err) {

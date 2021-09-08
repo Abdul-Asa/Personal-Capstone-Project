@@ -52,7 +52,7 @@ const UserCard = ({ info, ...rest }) => {
       baseState = 'N/A';
     }
     email = info.email;
-    if (!info.baseState) {
+    if (!info.email) {
       email = 'N/A';
     }
     profile = info.myProfile;
@@ -62,7 +62,13 @@ const UserCard = ({ info, ...rest }) => {
   }
 
   return (
-    <Box shadow="lg" rounded="lg" borderWidth="0.5px" {...rest}>
+    <Box
+      shadow="lg"
+      rounded="lg"
+      borderWidth="0.5px"
+      {...rest}
+      marginBottom="40px"
+    >
       <Stack my="5%">
         <Flex ml="10%" alignItems="center">
           {info ? (
@@ -108,7 +114,7 @@ const UserCard = ({ info, ...rest }) => {
         </Box>
         <Divider width="90%" alignSelf="center" />
         <Flex
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: 'column', sm: 'column', md: 'row' }}
           justify="space-around"
           px="10%"
           pt="20px"

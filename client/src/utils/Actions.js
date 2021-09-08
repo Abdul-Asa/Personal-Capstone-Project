@@ -73,7 +73,7 @@ export const changePassword = async (data) => {
   }
 };
 
-export const deleteAccount = async (data) => {
+export const deleteAccount = async () => {
   const user = getUser();
   const config = {
     headers: {
@@ -83,6 +83,138 @@ export const deleteAccount = async (data) => {
   if (user) {
     return await axios
       .delete(`${BASEURL}/user/${user.id}`, config)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const getJobsPosted = async () => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .get(`${BASEURL}/job/posted/${user.id}`, config)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const deleteJob = async (data) => {
+  const user = getUser();
+  let token = user.token;
+
+  if (user) {
+    return await axios
+      .delete(`${BASEURL}/job/delete/${user.id}`, {
+        headers: {
+          token: token,
+        },
+        data: data,
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const postNewjob = async (data, image) => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .post(`${BASEURL}/job/post/${user.id}`, data, config, image)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const addJobImage = async (image, id) => {
+  return await axios
+    .patch(`${BASEURL}/job/post/image/${id}`, image)
+    .then((response) => {
+      return response.data;
+    });
+};
+
+export const getJobApplicants = async (data) => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .patch(`${BASEURL}/job/applicants/${user.id}`, data, config)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const getAllJobs = async () => {
+  const user = getUser();
+
+  if (user) {
+    return await axios.get(`${BASEURL}/job/`).then((response) => {
+      return response.data;
+    });
+  }
+};
+
+export const applyToJob = async (data) => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .patch(`${BASEURL}/job/apply/${user.id}`, data, config)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const getJobsApplied = async () => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .get(`${BASEURL}/job/applied/${user.id}`, config)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const unApplyfromJob = async (data) => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .patch(`${BASEURL}/job/unapply/${user.id}`, data, config)
       .then((response) => {
         return response.data;
       });
