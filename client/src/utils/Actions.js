@@ -19,6 +19,12 @@ export const loginAction = async (data) => {
   });
 };
 
+export const signupAction = async (data) => {
+  return axios.post(`${BASEURL}/auth/signup`, data).then((response) => {
+    return response.data;
+  });
+};
+
 export const getUserInfo = async () => {
   const user = getUser();
   const config = {

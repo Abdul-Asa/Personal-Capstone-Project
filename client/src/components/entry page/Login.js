@@ -30,7 +30,8 @@ const Login = () => {
   }
   const [error, setError] = useState({ message: '' });
   const [alert, showAlert] = useState(false);
-
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
   const [loading, setLoading] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -57,9 +58,6 @@ const Login = () => {
       }
     });
   };
-
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
 
   return (
     <Center h="100vh" alignItems="center" bg="blackAlpha.900">
@@ -146,9 +144,9 @@ const Login = () => {
             align="center"
             direction={{ base: 'column', md: 'row' }}
           >
-            <Text color="GrayText">Forgot your password?</Text>
-            <Text color="GrayText" as="a" href="/">
-              Contact us
+            <Text color="GrayText">Don't have an account?</Text>
+            <Text color="GrayText" as="a" href="/signup">
+              Sign up
             </Text>
           </Flex>
         </Stack>

@@ -12,8 +12,8 @@ const signUpValidation = (data) => {
       .min(8)
       .max(1024)
       .pattern(new RegExp('^[a-zA-Z0-9]{3,1024}$')),
-    hasAgreed: Joi.boolean().required(),
-    over18: Joi.boolean().required(),
+    hasAgreed: Joi.boolean().required().invalid(false),
+    over18: Joi.boolean().required().invalid(false),
   });
 
   return validationSchema.validate(data);

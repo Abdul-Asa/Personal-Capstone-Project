@@ -37,8 +37,12 @@ const signupAction = async (req, res) => {
     const createdUser = await user.save();
 
     //send conf. code
-    url = `${req.protocol}://${req.get('host')}/auth/confirm/${confirmation}`;
-    sendConfirmationEmail(createdUser.firstName, createdUser.email, url);
+    if (process.env.NODE_ENV === 'production') {
+      url = `${req.protocol}://${req.get('host')}/confirm/${confirmation}`;
+      sendConfirmationEmail(createdUser.firstName, createdUser.email, url);
+    } else {
+      url = `${req.protocol}://localhost:3001/confirm/${confirmation}`;
+    }
     res.send({ message: 'success', user: createdUser, link: url });
   } catch (err) {
     if (err.code === 11000) {

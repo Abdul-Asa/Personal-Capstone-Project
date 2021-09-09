@@ -171,7 +171,7 @@ const Dashboard = ({ ...rest }) => {
         </Stack>
 
         <Stack direction="column" mt="10%" w="100%" align="center" spacing="4">
-          <Button
+          {/* <Button
             width="80%"
             align="left"
             justifyContent="flex-start"
@@ -182,7 +182,7 @@ const Dashboard = ({ ...rest }) => {
             textDecoration="none"
           >
             <FiPhoneCall /> <Text mx="5">Contact</Text>
-          </Button>
+          </Button> */}
           <Button
             width="80%"
             align="left"

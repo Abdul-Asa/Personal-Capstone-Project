@@ -138,9 +138,9 @@ const Home = () => {
               <Route path={`${path}/settings`}>
                 <Settings />
               </Route>
-              <Route path={`${path}/contact`}>
+              {/* <Route path={`${path}/contact`}>
                 <Contact />
-              </Route>
+              </Route> */}
               <Route path={`${path}/post-job`}>
                 <Post />
               </Route>

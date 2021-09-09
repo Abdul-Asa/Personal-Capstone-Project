@@ -1,6 +1,5 @@
 import {
   Center,
-  HStack,
   Heading,
   Input,
   Button,
@@ -21,20 +20,21 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { setUser, getUser } from '../../utils/Common';
-import { loginAction } from '../../utils/Actions';
-import axios from 'axios';
-import { config } from '../../config';
-import './css/EntryPage.css';
+import { getUser } from '../../utils/Common';
+import { signupAction } from '../../utils/Actions';
+
 
 const Signup = () => {
-  const { BASEURL } = config;
   let history = useHistory();
   const user = getUser();
   if (user) {
     history.push('/user/home');
   }
-  const [error, setError] = useState('');
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+  const [error, setError] = useState({ message: '' });
+  const [alert, showAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [signupInfo, setSignupInfo] = useState({
     firstName: '',
     lastName: '',
@@ -44,32 +44,26 @@ const Signup = () => {
     over18: false,
   });
   const handleInput = (e) => {
-    if (e.target.name === 'hasAgreed') {
+    const { name, value } = e.target;
+    if (e.target.type === 'checkbox') {
       const { checked } = e.target;
       return setSignupInfo((inputDetails) => {
-        return { ...inputDetails, [name]: value };
+        return { ...inputDetails, [name]: checked };
       });
     }
-    const { name, value } = e.target;
     setSignupInfo((inputDetails) => {
       return { ...inputDetails, [name]: value };
     });
   };
   const submitSignup = (e) => {
     e.preventDefault();
-    // axios.post(`${BASEURL}/auth/signup`, signupInfo).then((response) => {
-    //   if (response.data.message === 'success') {
-    //     setError(response.data.link);
-    //     // history.push('/login');
-    //   } else {
-    //     setError(response.data.message);
-    //   }
-    // });
-    console.log(signupInfo);
+    setLoading(true);
+    signupAction(signupInfo).then((response) => {
+      setError(response);
+      setLoading(false);
+      showAlert(true);
+    });
   };
-
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
 
   return (
     <Center h="100vh" alignItems="center" bg="blackAlpha.900">
@@ -81,6 +75,7 @@ const Signup = () => {
         shadow="xl"
         mx={{ base: '5%', md: '35%' }}
         p={{ base: '0', md: '2' }}
+        overflow="auto"
       >
         <Stack spacing="10px">
           <Center my="6">
@@ -161,21 +156,46 @@ const Signup = () => {
                   <FormLabel ml="10px">Agree to Terms & Conditions</FormLabel>
                 </Flex>
               </FormControl>
+              <FormControl pt="10px" isRequired>
+                <Flex>
+                  <Checkbox
+                    name="over18"
+                    checked={signupInfo.over18}
+                    onChange={handleInput}
+                  />
+                  <FormLabel ml="10px">Over 18 years of age</FormLabel>
+                </Flex>
+              </FormControl>
             </CheckboxGroup>
             <Center pt="8">
               <Button
                 width="full"
                 variant="solid"
                 onClick={submitSignup}
-                // isLoading={loading}
+                isLoading={loading}
               >
                 Sign Up
               </Button>
             </Center>
-            {/* {alert && (
+            {alert && (
               <Alert status={error.message === 'success' ? 'success' : 'error'}>
                 <AlertIcon />
-                <AlertDescription>{error.message}</AlertDescription>
+                <AlertDescription>
+                  {error.message === 'success' ? (
+                    <Box>
+                      <Text>
+                        Click on the link below to verify your account
+                      </Text>
+                      <Box mt="10px">
+                        <Text as="a" href={error.link}>
+                          Verify account
+                        </Text>
+                      </Box>
+                    </Box>
+                  ) : (
+                    error.message
+                  )}
+                </AlertDescription>
                 <CloseButton
                   position="absolute"
                   right="8px"
@@ -183,7 +203,19 @@ const Signup = () => {
                   onClick={() => showAlert(false)}
                 />
               </Alert>
-            )} */}
+            )}
+            <Flex
+              justify="space-evenly"
+              pt="3px"
+              pb="13px"
+              align="center"
+              direction={{ base: 'column', md: 'row' }}
+            >
+              <Text color="GrayText">Have an account already?</Text>
+              <Text color="GrayText" as="a" href="/login">
+                Log in
+              </Text>
+            </Flex>
           </Stack>
         </Stack>
       </Box>
