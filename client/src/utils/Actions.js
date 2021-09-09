@@ -8,7 +8,13 @@ export const logOutAction = () => {
 };
 
 export const verifyUser = (url) => {
-  return axios.get(`${BASEURL}${url}`).then((response) => {
+  return axios.get(`${BASEURL}/auth${url}`).then((response) => {
+    return response.data;
+  });
+};
+
+export const loginAction = async (data) => {
+  return await axios.post(`${BASEURL}/auth/login`, data).then((response) => {
     return response.data;
   });
 };

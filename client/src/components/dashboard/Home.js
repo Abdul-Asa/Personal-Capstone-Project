@@ -111,7 +111,6 @@ const Home = () => {
             minH="650px"
             minW="280px"
             shadow="md"
-            // height="00px"
             overflow="auto"
           >
             <Switch>

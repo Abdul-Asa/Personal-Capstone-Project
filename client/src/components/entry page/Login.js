@@ -1,23 +1,41 @@
 import React, { useState } from 'react';
+import {
+  Center,
+  Heading,
+  Input,
+  Button,
+  InputRightElement,
+  Text,
+  Flex,
+  FormLabel,
+  InputGroup,
+  Stack,
+  Alert,
+  AlertIcon,
+  AlertDescription,
+  Box,
+  FormControl,
+  CloseButton,
+} from '@chakra-ui/react';
+
 import { useHistory } from 'react-router-dom';
 import { setUser, getUser } from '../../utils/Common';
-import { config } from '../../config';
-import axios from 'axios';
+import { loginAction } from '../../utils/Actions';
 
 const Login = () => {
-  const { BASEURL } = config;
+  let history = useHistory();
+  const user = getUser();
+  if (user) {
+    history.push('/user/home');
+  }
+  const [error, setError] = useState({ message: '' });
+  const [alert, showAlert] = useState(false);
 
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
-  let history = useHistory();
-  const user = getUser();
-
-  if (user) {
-    history.push('/user/home');
-  }
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -25,55 +43,117 @@ const Login = () => {
       return { ...inputDetails, [name]: value };
     });
   };
-
   const submitLogin = (e) => {
     e.preventDefault();
-    axios.post(`${BASEURL}/auth/login`, loginInfo).then((response) => {
-      if (response.data.message === 'success') {
-        setUser(response.data);
+    setLoading(true);
+    loginAction(loginInfo).then((response) => {
+      setError(response);
+      setLoading(false);
+      showAlert(true);
+      console.log(error);
+      if (response.message === 'success') {
+        setUser(response);
         history.push('user/home');
-      } else setError(response.data.message);
+      }
     });
   };
 
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+
   return (
-    <div className="entry-page">
-      <a className="page-header" href="/">
-        <i className="fas fa-parking"></i>
-        <p className="page-header-text">Padrone</p>
-      </a>
-      <div className="card">
-        <h1 className="form-header">Login</h1>
-        <form onSubmit={submitLogin}>
-          <div className="form-group">
-            <label className="form-label">Email:</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Enter email"
-              name="email"
-              value={loginInfo.email}
-              onChange={handleInput}
-            />
-          </div>
-          <div className="form-group">
-            <label className="form-label">Password:</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Enter password"
-              name="password"
-              value={loginInfo.password}
-              onChange={handleInput}
-            />
-          </div>
-          <p>{error}</p>
-          <button className="entry-btn">Login</button>
-        </form>
-      </div>
-    </div>
+    <Center h="100vh" alignItems="center" bg="blackAlpha.900">
+      <Box
+        w="full"
+        h="fit-content"
+        bg="white"
+        rounded="xl"
+        shadow="xl"
+        mx={{ base: '5%', md: '35%' }}
+        p={{ base: '0', md: '2' }}
+      >
+        <Stack spacing="10px">
+          <Center my="6">
+            <Heading as="a" href="/" _hover={{ textDecoration: 'none' }}>
+              Padrone
+            </Heading>
+          </Center>
+          <Stack
+            pl={{ base: '6', md: '10' }}
+            pr={{ base: '10%', md: '30' }}
+            spacing="3"
+          >
+            <FormControl>
+              <FormLabel>Email:</FormLabel>
+              <Input
+                pr="4.5rem"
+                type="email"
+                placeholder="Enter password"
+                value={loginInfo.email}
+                onChange={handleInput}
+                name="email"
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Password:</FormLabel>
+              <InputGroup>
+                <Input
+                  pr="4.5rem"
+                  type={show ? 'text' : 'password'}
+                  placeholder="Enter password"
+                  value={loginInfo.password}
+                  onChange={handleInput}
+                  name="password"
+                />{' '}
+                <InputRightElement width="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleClick}
+                    variant="unstyled"
+                  >
+                    {show ? 'Show' : 'Hide'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>{' '}
+            <Center pt="8">
+              <Button
+                width="full"
+                variant="solid"
+                onClick={submitLogin}
+                isLoading={loading}
+              >
+                Login
+              </Button>
+            </Center>
+            {alert && (
+              <Alert status={error.message === 'success' ? 'success' : 'error'}>
+                <AlertIcon />
+                <AlertDescription>{error.message}</AlertDescription>
+                <CloseButton
+                  position="absolute"
+                  right="8px"
+                  top="8px"
+                  onClick={() => showAlert(false)}
+                />
+              </Alert>
+            )}
+          </Stack>
+          <Flex
+            justify="space-evenly"
+            py="15px"
+            align="center"
+            direction={{ base: 'column', md: 'row' }}
+          >
+            <Text color="GrayText">Forgot your password?</Text>
+            <Text color="GrayText" as="a" href="/">
+              Contact us
+            </Text>
+          </Flex>
+        </Stack>
+      </Box>
+    </Center>
   );
 };
 
