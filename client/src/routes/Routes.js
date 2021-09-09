@@ -24,7 +24,7 @@ const Routes = () => {
         <Home />
       </PrivateRoute>
       <ConfirmRoute
-        path="/auth/confirm/:confirmationCode"
+        path="/confirm/:confirmationCode"
         failureChild={<WrongConfirmation />}
       >
         <Confirmation />

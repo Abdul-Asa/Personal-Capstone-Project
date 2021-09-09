@@ -25,7 +25,7 @@ import Welcome from './Welcome';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { getUserInfo } from '../../utils/Actions';
 import Dashboard from './Dashboard';
-import Contact from './Contact';
+// import Contact from './Contact';
 import Settings from './Settings';
 import Profile from './Profile';
 import Post from './Post';
@@ -111,7 +111,6 @@ const Home = () => {
             minH="650px"
             minW="280px"
             shadow="md"
-            // height="00px"
             overflow="auto"
           >
             <Switch>
@@ -139,9 +138,9 @@ const Home = () => {
               <Route path={`${path}/settings`}>
                 <Settings />
               </Route>
-              <Route path={`${path}/contact`}>
+              {/* <Route path={`${path}/contact`}>
                 <Contact />
-              </Route>
+              </Route> */}
               <Route path={`${path}/post-job`}>
                 <Post />
               </Route>

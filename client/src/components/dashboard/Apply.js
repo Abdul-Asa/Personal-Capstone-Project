@@ -112,9 +112,9 @@ const Apply = () => {
       <Heading m="30px">Apply</Heading>
       <Stack spacing="30px" px={{ base: '3%', md: '40px' }}>
         <Flex alignItems="center" justify="space-between" width="100%">
-          <Button borderRadius="full" size="lg">
+          <Button borderRadius="full" size="lg" >
             <FaPlus />
-            <Text ml="3">Apply job</Text>
+            <Text ml="3" as='a' href="search-job" >Apply job</Text>
           </Button>
         </Flex>
 
