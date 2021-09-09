@@ -33,4 +33,5 @@ jobs:
       - name: Run a multi-line script
         run: |
           heroku logs --tail --app asa-padrone
+          npm run start
           echo please work.
