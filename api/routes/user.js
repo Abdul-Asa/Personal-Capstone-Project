@@ -15,10 +15,10 @@ const {
   updateProfilePic,
 } = require('../queries/userQueries');
 
-router.get('/:id', userAuthentication, getSingleUser);
-router.get('/', adminAuthentication, getAllUsers);
-router.delete('/:id', userAuthentication, deleteSingleUser);
-router.patch('/:id', userAuthentication, updateSingleUser);
+router.get('/get-info/:id', userAuthentication, getSingleUser);
+router.get('/get-all/', adminAuthentication, getAllUsers);
+router.delete('/delete/:id', userAuthentication, deleteSingleUser);
+router.patch('/update/:id', userAuthentication, updateSingleUser);
 router.patch(
   '/reset-password/:id',
   userAuthentication,

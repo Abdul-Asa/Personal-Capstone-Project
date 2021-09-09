@@ -110,7 +110,7 @@ const Login = () => {
                     onClick={handleClick}
                     variant="unstyled"
                   >
-                    {show ? 'Show' : 'Hide'}
+                    {show ? 'Hide' : 'Show'}
                   </Button>
                 </InputRightElement>
               </InputGroup>

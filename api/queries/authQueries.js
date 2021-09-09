@@ -1,11 +1,13 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const dotenv = require('dotenv');
 const {
   signUpValidation,
   loginValidation,
 } = require('../authentication/validation');
 const { sendConfirmationEmail } = require('../authentication/node.mailer');
+dotenv.config();
 
 const signupAction = async (req, res) => {
   try {
@@ -37,12 +39,13 @@ const signupAction = async (req, res) => {
     const createdUser = await user.save();
 
     //send conf. code
+    let url = '';
     if (process.env.NODE_ENV === 'production') {
       url = `${req.protocol}://${req.get('host')}/confirm/${confirmation}`;
-      sendConfirmationEmail(createdUser.firstName, createdUser.email, url);
     } else {
       url = `${req.protocol}://localhost:3001/confirm/${confirmation}`;
     }
+    sendConfirmationEmail(createdUser.firstName, createdUser.email, url);
     res.send({ message: 'success', user: createdUser, link: url });
   } catch (err) {
     if (err.code === 11000) {
