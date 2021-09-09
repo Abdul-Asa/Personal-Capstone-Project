@@ -8,13 +8,9 @@ import {
   useColorModeValue,
   Spacer,
   Collapse,
-  useMediaQuery,
   Heading,
-  Spinner,
   IconButton,
   useColorMode,
-  Center,
-  Text,
 } from '@chakra-ui/react';
 import { FaGithub, FaInstagram, FaSun, FaMoon } from 'react-icons/fa';
 import { HiX, HiOutlineMenu } from 'react-icons/hi';

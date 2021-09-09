@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import {
   IconButton,
@@ -235,7 +235,7 @@ const LandingPage = () => {
                       borderWidth="1px"
                       p={5}
                     >
-                      <Box px={4} py={2} maxW="sm" h="180px" maxW="400px">
+                      <Box px={4} py={2} h="180px" maxW="400px">
                         <Flex align="center" justify="center">
                           <BsMoon size="30px" />
                           <Text

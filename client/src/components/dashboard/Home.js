@@ -25,7 +25,7 @@ import Welcome from './Welcome';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { getUserInfo } from '../../utils/Actions';
 import Dashboard from './Dashboard';
-import Contact from './Contact';
+// import Contact from './Contact';
 import Settings from './Settings';
 import Profile from './Profile';
 import Post from './Post';
