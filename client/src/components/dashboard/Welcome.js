@@ -1,63 +1,13 @@
 import React from 'react';
-import {
-  Heading,
-  Stack,
-  Box,
-  // VStack,
-  // Avatar,
-  // Text,
-  Button,
-  Flex,
-  // Grid,
-  // GridItem,
-  // HStack,
-  // useColorModeValue,
-  // WrapItem,
-  // Center,
-  // Link,
-  // Wrap,
-  // Badge,
-  // Container,
-  // VStack,
-  // Box,
-  // FormControl,
-  // FormLabel,
-  // FormHelperText,
-  // Spacer,
-  // Select,
-  // Text,
-  // StepButtons,
-  Skeleton,
-  // useColorModeValue,
-  // Button,
-  // useColorMode,
-  // IconButton,
-  // Breadcrumb,
-  // BreadcrumbLink,
-  // BreadcrumbItem,
-  // useMediaQuery,
-  // Input,
-  // AlertDialog,
-  // AlertDialogBody,
-  // AlertDialogFooter,
-  // AlertDialogHeader,
-  // AlertDialogOverlay,
-  // AlertDialogContent,
-  // InputGroup,
-  // InputLeftAddon,
-  // Textarea,
-} from '@chakra-ui/react';
+import { Heading, Stack, Box, Button, Flex, Skeleton } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
 import UserCard from './comps/User.Card';
-// import { MdWork } from 'react-icons/md';
-// import { IoPaperPlane } from 'react-icons/io5';
-// import floppete from './images/Floppete.jpeg';
-// import { MdEmail, MdLocationOn, MdPhoneInTalk } from 'react-icons/md';
-// import { BsFillBriefcaseFill } from 'react-icons/bs';
-// // import { useRouteMatch } from 'react-router-dom';
+
+import { useRouteMatch } from 'react-router-dom';
 
 const Welcome = ({ info }) => {
-  // let { path } = useRouteMatch();
+  let { path } = useRouteMatch();
+
   return (
     <Stack spacing="20px">
       {!info ? (
@@ -90,7 +40,7 @@ const Welcome = ({ info }) => {
               <Heading size="md">Profile</Heading>
             </Stack>
             <Flex justify="flex-end" py="2%">
-              <Button as="a" href="profile" variant="link" my="2">
+              <Button as="a" href={`${path}profile`} variant="link" my="2">
                 Edit profile {'>'}
               </Button>
             </Flex>

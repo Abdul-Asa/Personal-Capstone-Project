@@ -23,7 +23,6 @@ import { useHistory } from 'react-router-dom';
 import { getUser } from '../../utils/Common';
 import { signupAction } from '../../utils/Actions';
 
-
 const Signup = () => {
   let history = useHistory();
   const user = getUser();
@@ -140,7 +139,7 @@ const Signup = () => {
                     onClick={handleClick}
                     variant="unstyled"
                   >
-                    {show ? 'Show' : 'Hide'}
+                    {show ? 'Hide' : 'Show'}
                   </Button>
                 </InputRightElement>
               </InputGroup>

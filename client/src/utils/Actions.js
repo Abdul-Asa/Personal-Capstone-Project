@@ -34,7 +34,7 @@ export const getUserInfo = async () => {
   };
   if (user) {
     return await axios
-      .get(`${BASEURL}/user/${user.id}`, config)
+      .get(`${BASEURL}/user/get-info/${user.id}`, config)
       .then((response) => {
         if (response.data.message === 'success') {
           return response.data.user;
@@ -54,7 +54,7 @@ export const updateUser = async (data) => {
   };
   if (user) {
     return await axios
-      .patch(`${BASEURL}/user/${user.id}`, data, config)
+      .patch(`${BASEURL}/user/update/${user.id}`, data, config)
       .then((response) => {
         return response.data;
       });
@@ -100,7 +100,7 @@ export const deleteAccount = async () => {
   };
   if (user) {
     return await axios
-      .delete(`${BASEURL}/user/${user.id}`, config)
+      .delete(`${BASEURL}/user/delete/${user.id}`, config)
       .then((response) => {
         return response.data;
       });
