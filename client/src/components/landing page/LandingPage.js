@@ -53,7 +53,7 @@ const LandingPage = () => {
     let templateParams = {
       from_name: toSend.from_name,
       to_name: 'Abdullah',
-      message_html: toSend.message,
+      message: toSend.message,
     };
     setLoading(true);
     send(
@@ -313,22 +313,43 @@ const LandingPage = () => {
               <Center>
                 <HStack spacing={{ base: '20px', md: '10' }} mt="50px">
                   <IconButton
+                    as="a"
+                    href="https://github.com/Abdul-Asa/Personal-Capstone-Project"
                     icon={<FaGithub size="40px" />}
-                    color={useColorModeValue('white', 'gray.800')}
                     variant="ghost"
-                    _hover={{ bg: 'gray.500' }}
+                    color={useColorModeValue('white', 'gray.800')}
+                    _hover={{
+                      bg: 'gray.500',
+                      color: useColorModeValue('white', 'gray.800'),
+                      cursor: 'pointer',
+                    }}
+                    target="_blank"
                   />
                   <IconButton
                     icon={<FaInstagram size="40px" />}
+                    as="a"
+                    href="https://www.instagram.com/_abdul_.s/"
+                    _hover={{
+                      bg: 'gray.500',
+                      color: useColorModeValue('white', 'gray.800'),
+                      cursor: 'pointer',
+                    }}
+                    target="_blank"
                     variant="ghost"
                     color={useColorModeValue('white', 'gray.800')}
-                    _hover={{ bg: 'gray.500' }}
                   />
                   <IconButton
                     icon={<FaPaypal size="40px" />}
+                    as="a"
+                    href="https://paypal.me/ilovechefess?locale.x=en_US"
+                    _hover={{
+                      bg: 'gray.500',
+                      color: useColorModeValue('white', 'gray.800'),
+                      cursor: 'pointer',
+                    }}
+                    target="_blank"
                     variant="ghost"
                     color={useColorModeValue('white', 'gray.800')}
-                    _hover={{ bg: 'gray.500' }}
                   />
                 </HStack>
               </Center>

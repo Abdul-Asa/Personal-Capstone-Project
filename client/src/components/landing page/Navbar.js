@@ -51,16 +51,30 @@ const Navigation = () => {
         >
           <HStack>
             <IconButton
+              as="a"
+              href="https://github.com/Abdul-Asa/Personal-Capstone-Project"
               icon={<FaGithub size="20px" />}
+              target="_blank"
               color={useColorModeValue('white', 'gray.800')}
               variant="ghost"
-              _hover={{ bg: 'gray.500' }}
+              _hover={{
+                bg: 'gray.500',
+                color: useColorModeValue('white', 'gray.800'),
+                cursor: 'pointer',
+              }}
             />
             <IconButton
+              as="a"
+              href="https://www.instagram.com/_abdul_.s/"
               icon={<FaInstagram size="20px" />}
               variant="ghost"
               color={useColorModeValue('white', 'gray.800')}
-              _hover={{ bg: 'gray.500' }}
+              _hover={{
+                bg: 'gray.500',
+                color: useColorModeValue('white', 'gray.800'),
+                cursor: 'pointer',
+              }}
+              target="_blank"
             />
             <IconButton
               icon={
