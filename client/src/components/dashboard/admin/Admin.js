@@ -86,7 +86,7 @@ const Admin = () => {
                           {no + 1}.
                         </Td>
                         <Td isTruncated>
-                          {index.firstName} {index.laststName}
+                          {index.firstName} {index.lastName}
                         </Td>
                         <Td>{reformDate(index.createdAt)}</Td>
                         <Td>
