@@ -144,20 +144,6 @@ const UserCard = ({ info, ...rest }) => {
             </Text>
           </Stack>
         </Flex>
-        {/* <Box px="10%" pt="20px">
-          <Heading size="sm">Other credentials</Heading>
-          <Flex justify="space-between" px="10%" pt="20px">
-            <Stack alignItems="center">
-              <Text>CV</Text>
-            </Stack>
-            <Stack alignItems="center">
-              <Text>CV</Text>
-            </Stack>
-            <Stack alignItems="center">
-              <Text>CV</Text>
-            </Stack>
-          </Flex>
-        </Box> */}
       </Stack>
     </Box>
   );

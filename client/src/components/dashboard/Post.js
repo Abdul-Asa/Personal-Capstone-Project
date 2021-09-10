@@ -232,9 +232,20 @@ const Post = () => {
               >
                 <option value="None">None</option>
                 <option value="Software Engineer">Software Engineer</option>
-                <option value="Mechanical Engineer">Mechanical Engineer</option>
                 <option value="Website Developer">Website Developer</option>
                 <option value="UI/UX Designer">UI/UX Designer</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Mechanical Engineer">Mechanical Engineer</option>
+                <option value="Baker">Baker</option>
+                <option value="Fashion Designer">Fashion Designer</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Professional driver">Professional Driver</option>
+                <option value="Electrician">Electrician</option>
+                <option value="Hokage">Hokage</option>
+                <option value="Pirate">Pirate</option>
+                <option value="Professional Yahoo guy">
+                  Professional Yahoo guy
+                </option>
               </Select>
               <Select
                 ml={{ base: 'none', md: '3px' }}
