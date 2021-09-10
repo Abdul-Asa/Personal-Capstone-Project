@@ -18,7 +18,14 @@ import {
   AlertDialogContent,
   Center,
 } from '@chakra-ui/react';
-import { FiHome, FiSettings, FiSearch, FiUser, FiLogOut } from 'react-icons/fi';
+import {
+  FiHome,
+  FiSettings,
+  FiSearch,
+  FiUser,
+  FiLogOut,
+  FiUserPlus,
+} from 'react-icons/fi';
 import { CgWorkAlt } from 'react-icons/cg';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { useRouteMatch, useHistory } from 'react-router-dom';
@@ -164,18 +171,18 @@ const Dashboard = ({ ...rest }) => {
         </Stack>
 
         <Stack direction="column" mt="10%" w="100%" align="center" spacing="4">
-          {/* <Button
+          <Button
             width="80%"
             align="left"
             justifyContent="flex-start"
             bg="transparent"
             as="a"
-            href={`${path}/contact`}
+            href={`${path}/admin`}
             _hover={{ textDecorationLine: 'none', bg: 'gray.200' }}
             textDecoration="none"
           >
-            <FiPhoneCall /> <Text mx="5">Contact</Text>
-          </Button> */}
+            <FiUserPlus /> <Text mx="5">Admin</Text>
+          </Button>
           <Button
             width="80%"
             align="left"

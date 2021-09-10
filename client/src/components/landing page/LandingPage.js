@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   IconButton,
   Avatar,
@@ -19,6 +18,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
+import dotenv from 'dotenv';
 import Navbar from './Navbar';
 import { send } from 'emailjs-com';
 import { getUser } from '../../utils/Common';
@@ -27,6 +27,7 @@ import { MdDevices } from 'react-icons/md';
 import { FaGithub, FaInstagram, FaPaypal } from 'react-icons/fa';
 
 const LandingPage = () => {
+  dotenv.config();
   let history = useHistory();
   const user = getUser();
   if (user) {
@@ -73,6 +74,7 @@ const LandingPage = () => {
           duration: 5000,
           isClosable: true,
         });
+
         setToSend({
           from_name: '',
           to_name: '',
@@ -126,7 +128,7 @@ const LandingPage = () => {
                   color={useColorModeValue('GrayText', 'whiteAlpha.900')}
                 >
                   Find qualified employees to carry out your jobs or connect
-                  with multiple employers and offer your services
+                  with multiple employers and offer your services.
                 </Text>
               </Center>
               <Center>
@@ -182,7 +184,7 @@ const LandingPage = () => {
                   fontSize={{ base: '22px', md: '30px' }}
                   color={useColorModeValue('GrayText', 'whiteAlpha.900')}
                 >
-                  Padrone boasts a bunch of features for easy and everyday use
+                  Padrone boasts a bunch of features for easy and everyday use.
                 </Text>
               </Center>
               <Center>
@@ -306,8 +308,8 @@ const LandingPage = () => {
                   color={useColorModeValue('whiteAlpha.900', 'gray.800')}
                 >
                   I devoted a lot of time, effort, and heart to make Padrone a
-                  reality. You can show some love by leaving a star on the
-                  github repo or following me on Instagram. (Shameless plug 👀)
+                  reality. You can show some love by leaving a 🌟 on the github
+                  repo or following me on Instagram. (Shameless plug 👀)
                 </Text>
               </Center>
               <Center>
@@ -452,7 +454,7 @@ const LandingPage = () => {
                 >
                   I hope to add more feautures to Padrone in the future. If you
                   have any ideas, want to share your thoughts or even
-                  collaborate with me, just reach out
+                  collaborate with me, just reach out.
                 </Text>
               </Center>
               <Center mt="20px">
@@ -516,12 +518,6 @@ const LandingPage = () => {
         </Stack>
       </Center>
     </Box>
-    // <>
-    //   <div>
-    //     <h1>Home</h1>
-    //   </div>
-    //   <Footer />
-    // </>
   );
 };
 

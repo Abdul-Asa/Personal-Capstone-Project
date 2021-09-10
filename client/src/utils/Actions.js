@@ -1,5 +1,5 @@
 import { removeUser, getUser } from './Common';
-import { config } from '../config';
+import { config } from './config';
 import axios from 'axios';
 
 const { BASEURL } = config;
@@ -233,6 +233,22 @@ export const unApplyfromJob = async (data) => {
   if (user) {
     return await axios
       .patch(`${BASEURL}/job/unapply/${user.id}`, data, config)
+      .then((response) => {
+        return response.data;
+      });
+  }
+};
+
+export const adminInfo = async () => {
+  const user = getUser();
+  const config = {
+    headers: {
+      token: user.token,
+    },
+  };
+  if (user) {
+    return await axios
+      .get(`${BASEURL}/user/get-all`, config)
       .then((response) => {
         return response.data;
       });

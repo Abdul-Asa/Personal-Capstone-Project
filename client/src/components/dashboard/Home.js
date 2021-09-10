@@ -25,16 +25,16 @@ import Welcome from './Welcome';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { getUserInfo } from '../../utils/Actions';
 import Dashboard from './Dashboard';
-// import Contact from './Contact';
+import Admin from './admin/Admin';
+import AdminRoute from '../../routes/adminRoute';
 import Settings from './Settings';
 import Profile from './Profile';
 import Post from './Post';
 import Search from './Search';
 import Apply from './Apply';
+import WrongUser from './admin/WrongUser';
 
 const Home = () => {
-  // const { colorMode, toggleColorMode } = useColorMode();
-
   const [userInfo, setUserinfo] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -138,9 +138,9 @@ const Home = () => {
               <Route path={`${path}/settings`}>
                 <Settings />
               </Route>
-              {/* <Route path={`${path}/contact`}>
-                <Contact />
-              </Route> */}
+              <AdminRoute path={`${path}/admin`} failureChild={<WrongUser />}>
+                <Admin />
+              </AdminRoute>
               <Route path={`${path}/post-job`}>
                 <Post />
               </Route>

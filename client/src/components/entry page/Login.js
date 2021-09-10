@@ -67,6 +67,7 @@ const Login = () => {
         bg="white"
         rounded="xl"
         shadow="xl"
+        color="gray.800"
         mx={{ base: '5%', md: '35%' }}
         p={{ base: '0', md: '2' }}
       >
@@ -86,6 +87,7 @@ const Login = () => {
               <Input
                 pr="4.5rem"
                 type="email"
+                borderColor="gray.500"
                 placeholder="Enter password"
                 value={loginInfo.email}
                 onChange={handleInput}
@@ -100,6 +102,7 @@ const Login = () => {
                   type={show ? 'text' : 'password'}
                   placeholder="Enter password"
                   value={loginInfo.password}
+                  borderColor="gray.500"
                   onChange={handleInput}
                   name="password"
                 />{' '}
@@ -121,6 +124,7 @@ const Login = () => {
                 variant="solid"
                 onClick={submitLogin}
                 isLoading={loading}
+                colorScheme="twitter"
               >
                 Login
               </Button>

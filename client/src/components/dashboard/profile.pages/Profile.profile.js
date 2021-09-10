@@ -26,7 +26,7 @@ import {
   // InputLeftAddon,
   Textarea,
 } from '@chakra-ui/react';
-import { config } from '../../../config';
+import { config } from '../../../utils/config';
 import axios from 'axios';
 import { getUser } from '../../../utils/Common';
 import { getUserInfo } from '../../../utils/Actions';

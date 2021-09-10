@@ -8,6 +8,7 @@ import Confirmation from '../components/entry page/Confirmation';
 import PrivateRoute from './PrivateRoute';
 import ConfirmRoute from './confirmRoute';
 import WrongConfirmation from '../components/entry page/WrongConfirmation';
+
 const Routes = () => {
   return (
     <Switch>

@@ -6,17 +6,6 @@ import {
   Select,
   Stack,
   useColorModeValue,
-  // Button,
-  // WrapItem,
-  // AlertDialog,
-  // AlertDialogBody,
-  // AlertDialogFooter,
-  // AlertDialogHeader,
-  // AlertDialogOverlay,
-  // AlertDialogContent,
-  // InputGroup,
-  // InputLeftAddon,
-  // Textarea,
 } from '@chakra-ui/react';
 const JobProfile = ({ profileData, handleInput }) => {
   return (
@@ -38,6 +27,16 @@ const JobProfile = ({ profileData, handleInput }) => {
           <option value="Software Engineer">Software Engineer</option>
           <option value="Website Developer">Website Developer</option>
           <option value="UI/UX Designer">UI/UX Designer</option>
+          <option value="Accountant">Accountant</option>
+          <option value="Mechanical Engineer">Mechanical Engineer</option>
+          <option value="Baker">Baker</option>
+          <option value="Fashion Designer">Fashion Designer</option>
+          <option value="Teacher">Teacher</option>
+          <option value="Professional driver">Professional Driver</option>
+          <option value="Electrician">Electrician</option>
+          <option value="Hokage">Hokage</option>
+          <option value="Pirate">Pirate</option>
+          <option value="Professional Yahoo guy">Professional Yahoo guy</option>
         </Select>
       </FormControl>
       <FormControl>
@@ -50,9 +49,18 @@ const JobProfile = ({ profileData, handleInput }) => {
           name="myProfession2"
         >
           <option value="Software Engineer">Software Engineer</option>
-          <option value="Mechanical Engineer">Mechanical Engineer</option>
           <option value="Website Developer">Website Developer</option>
           <option value="UI/UX Designer">UI/UX Designer</option>
+          <option value="Accountant">Accountant</option>
+          <option value="Mechanical Engineer">Mechanical Engineer</option>
+          <option value="Baker">Baker</option>
+          <option value="Fashion Designer">Fashion Designer</option>
+          <option value="Teacher">Teacher</option>
+          <option value="Professional driver">Professional Driver</option>
+          <option value="Electrician">Electrician</option>
+          <option value="Hokage">Hokage</option>
+          <option value="Pirate">Pirate</option>
+          <option value="Professional Yahoo guy">Professional Yahoo guy</option>
         </Select>
         <Select
           placeholder="Select occupation"
@@ -63,9 +71,18 @@ const JobProfile = ({ profileData, handleInput }) => {
           name="myProfession3"
         >
           <option value="Software Engineer">Software Engineer</option>
-          <option value="Mechanical Engineer">Mechanical Engineer</option>
           <option value="Website Developer">Website Developer</option>
           <option value="UI/UX Designer">UI/UX Designer</option>
+          <option value="Accountant">Accountant</option>
+          <option value="Mechanical Engineer">Mechanical Engineer</option>
+          <option value="Baker">Baker</option>
+          <option value="Fashion Designer">Fashion Designer</option>
+          <option value="Teacher">Teacher</option>
+          <option value="Professional driver">Professional Driver</option>
+          <option value="Electrician">Electrician</option>
+          <option value="Hokage">Hokage</option>
+          <option value="Pirate">Pirate</option>
+          <option value="Professional Yahoo guy">Professional Yahoo guy</option>
         </Select>
       </FormControl>
     </Stack>

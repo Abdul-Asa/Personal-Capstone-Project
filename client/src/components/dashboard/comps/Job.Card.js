@@ -67,13 +67,7 @@ const JobCard = ({ info, ...rest }) => {
   }
 
   return (
-    <Flex
-      // bg={useColorModeValue('#F9FAFB', 'gray.600')}
-      py="10"
-      w="full"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Flex py="10" w="full" alignItems="center" justifyContent="center">
       <Box
         w="md"
         bg={useColorModeValue('white', 'gray.800')}
