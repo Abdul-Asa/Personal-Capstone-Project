@@ -36,7 +36,7 @@ The basics. Atlas for my Database System. Deployed on Heroku. I also tried using
 
 ## Conclusion
 
-It was an interesting ride making Padrone. Changing ideas every second, Figuring out the designs and lots and lots (and I mean **lots**)of Google searching. It was a fun ride. Feel free to check out some of my other Projects in my Github repo. Padrone is probably my biggest project for now.
+It was an interesting ride making Padrone. Changing ideas every second, figuring out the designs and lots and lots (and I mean **lots**)of Google searching. It was a fun ride. Feel free to check out some of my other Projects in my Github repo. Padrone is probably my biggest project for now.
 
 ---
 
