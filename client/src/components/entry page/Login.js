@@ -88,7 +88,8 @@ const Login = () => {
                 pr="4.5rem"
                 type="email"
                 borderColor="gray.500"
-                placeholder="Enter password"
+                placeholder="Enter Email"
+                _hover={{ color: 'gray.500', borderWidth: '2px' }}
                 value={loginInfo.email}
                 onChange={handleInput}
                 name="email"
@@ -100,6 +101,7 @@ const Login = () => {
                 <Input
                   pr="4.5rem"
                   type={show ? 'text' : 'password'}
+                  _hover={{ color: 'gray.500', borderWidth: '2px' }}
                   placeholder="Enter password"
                   value={loginInfo.password}
                   borderColor="gray.500"

@@ -72,6 +72,7 @@ const Signup = () => {
         bg="white"
         rounded="xl"
         shadow="xl"
+        color="gray.800"
         mx={{ base: '5%', md: '35%' }}
         p={{ base: '0', md: '2' }}
         overflow="auto"
@@ -91,9 +92,11 @@ const Signup = () => {
             <FormControl isRequired>
               <FormLabel>First Name:</FormLabel>
               <Input
+                _hover={{ color: 'gray.500', borderWidth: '2px' }}
                 pr="4.5rem"
                 type="text"
                 placeholder="Enter First name"
+                borderColor="gray.500"
                 value={signupInfo.firstName}
                 onChange={handleInput}
                 name="firstName"
@@ -102,9 +105,11 @@ const Signup = () => {
             <FormControl isRequired>
               <FormLabel>Last Name:</FormLabel>
               <Input
+                _hover={{ color: 'gray.500', borderWidth: '2px' }}
                 pr="4.5rem"
                 type="text"
                 placeholder="Enter Last name"
+                borderColor="gray.500"
                 value={signupInfo.lastName}
                 onChange={handleInput}
                 name="lastName"
@@ -113,10 +118,12 @@ const Signup = () => {
             <FormControl isRequired>
               <FormLabel>Email:</FormLabel>
               <Input
+                _hover={{ color: 'gray.500', borderWidth: '2px' }}
                 pr="4.5rem"
                 type="email"
                 placeholder="Enter password"
                 value={signupInfo.email}
+                borderColor="gray.500"
                 onChange={handleInput}
                 name="email"
               />
@@ -125,9 +132,11 @@ const Signup = () => {
               <FormLabel>Password:</FormLabel>
               <InputGroup>
                 <Input
+                  _hover={{ color: 'gray.500', borderWidth: '2px' }}
                   pr="4.5rem"
                   type={show ? 'text' : 'password'}
                   placeholder="Enter password"
+                  borderColor="gray.500"
                   value={signupInfo.password}
                   onChange={handleInput}
                   name="password"
@@ -148,6 +157,7 @@ const Signup = () => {
               <FormControl pt="10px" isRequired>
                 <Flex>
                   <Checkbox
+                    borderColor="gray.500"
                     name="hasAgreed"
                     checked={signupInfo.hasAgreed}
                     onChange={handleInput}
@@ -158,6 +168,7 @@ const Signup = () => {
               <FormControl pt="10px" isRequired>
                 <Flex>
                   <Checkbox
+                    borderColor="gray.500"
                     name="over18"
                     checked={signupInfo.over18}
                     onChange={handleInput}
@@ -172,6 +183,7 @@ const Signup = () => {
                 variant="solid"
                 onClick={submitSignup}
                 isLoading={loading}
+                colorScheme="twitter"
               >
                 Sign Up
               </Button>
