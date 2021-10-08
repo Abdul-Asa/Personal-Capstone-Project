@@ -30,7 +30,7 @@ This is an npm package used to send emails. So yes...I can see the messages you 
 
 Another npm package to send emails. This one is used for sending confirmation emails after a user signs up. It was kinda buggy so I just displayed the link immediately a user signed up with an alert.
 
-### MongoDB Atlas, Heroku and Github(duh🙄)
+### MongoDB Atlas, Heroku and Github(duh)
 
 The basics. Atlas for my Database System. Deployed on Heroku. I also tried using Github Actions for CI/CD. Tried.
 
