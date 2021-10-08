@@ -18,16 +18,17 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
-import dotenv from 'dotenv';
 import Navbar from './Navbar';
 import { send } from 'emailjs-com';
 import { getUser } from '../../utils/Common';
 import { BsPersonBoundingBox, BsMoon } from 'react-icons/bs';
 import { MdDevices } from 'react-icons/md';
 import { FaGithub, FaInstagram, FaPaypal } from 'react-icons/fa';
+// import image1 from './images/pexels-tima-miroshnichenko-5439455.jpeg';
+// import image2 from './images/pexels-gustavo-fring-7447287.jpeg';
+// import image3 from './images/pexels-andrea-piacquadio-3806280.jpeg';
 
 const LandingPage = () => {
-  dotenv.config();
   let history = useHistory();
   const user = getUser();
   if (user) {
@@ -94,6 +95,7 @@ const LandingPage = () => {
         });
       });
   };
+
   return (
     <Box
       minH="100vh"
@@ -104,7 +106,7 @@ const LandingPage = () => {
       <Navbar />
       <Center>
         <Stack>
-          <Center>
+          <Center bgSize="cover" bgPos="center" bgRepeat="no-repeat">
             <Box
               mx={{ base: '2', md: '40' }}
               textAlign="center"

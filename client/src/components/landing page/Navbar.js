@@ -30,7 +30,13 @@ const Navigation = () => {
         h="80px"
         minW="300px"
       >
-        <Flex alignItems="center" ml={{ base: '1', md: '5' }}>
+        <Flex
+          alignItems="center"
+          ml={{ base: '1', md: '5' }}
+          as="a"
+          href="/"
+          _hover={{ textDecoration: 'none' }}
+        >
           <LogoIcon
             boxSize={8}
             color={useColorModeValue('white', 'gray.800')}
